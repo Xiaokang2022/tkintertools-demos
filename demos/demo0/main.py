@@ -35,6 +35,8 @@ ORIGIN_SYSTEM = constants.SYSTEM
 Data Card (RGBA - Experimental)
 """
 
+canvas.create_image(640, 360, image=tkt.PhotoImage(file="./assets/images/background.png"))
+
 _l = tkt.Label(canvas, (620, 390), (240, 310), name="")
 _l.shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
                        "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}

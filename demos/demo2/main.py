@@ -9,10 +9,13 @@ import tkintertools.standard.dialogs as dialogs
 import tkintertools.standard.features as features
 import tkintertools.standard.shapes as shapes
 import tkintertools.standard.texts as texts
+import tkintertools.style as style
 import tkintertools.toolbox as toolbox
 
-if toolbox.load_font("assets/fonts/LXGWWenKai-Regular.ttf"):  # 加载指定字体文件
+if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):  # 加载指定字体文件
     constants.FONT = "霞鹜文楷"  # 指定全局字体
+
+style.set_color_theme("./demos/demo2/theme")  # 设置自定义的颜色主题
 
 
 class Circle(shapes.Oval):
@@ -34,7 +37,7 @@ class Piece(tkt.Widget):
         text: str,
     ) -> None:
         tkt.Widget.__init__(self, master, index_to_position(*position), (60, 60))
-        Circle(self, styles=STYLES[color])
+        Circle(self, name=f".{color}")
         texts.Information(self, text=text, size=32)
         features.Button(self, command=lambda: move_mark(self.bx, self.by))
         self.color = color
@@ -177,19 +180,6 @@ def winner() -> bool | None:
         return True  # 黑方输
     return None
 
-
-STYLES = {  # 棋子样式表
-    "black": {  # 黑方（fill: 内部填充颜色，outline: 轮廓颜色）
-        "normal": {"fill": "#448AFF", "outline": "grey"},  # 默认样式
-        "hover": {"fill": "#00BFA5", "outline": "grey"},  # 鼠标悬于其上时的样式
-        "active": {"fill": "#018b78", "outline": "grey"},  # 被点击时的样式
-    },
-    "white": {  # 白方
-        "normal": {"fill": "#EEC1EB", "outline": "grey"},
-        "hover": {"fill": "#e85fdf", "outline": "grey"},
-        "active": {"fill": "#903a8a", "outline": "grey"},
-    },
-}
 
 GRAPH = {  # 棋盘位置连通数据
     (0, 0): [(2, 0), (1, 1)],
