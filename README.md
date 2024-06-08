@@ -12,10 +12,18 @@ Official demos for tkintertools package
 
 ## 📑 Demos
 
-### 0️⃣ Basic Test
+### 0️⃣ [Basic Test](./demos/demo0/)
 
-### 1️⃣ Login Window
+![demo0.png](./preview/demo0.png)
 
-### 2️⃣ Simple Game
+### 1️⃣ [Login Window](./demos/demo1/)
 
-### 3️⃣ 3D Performance Test
+![demo1.png](./preview/demo1.png)
+
+### 2️⃣ [Simple Game](./demos/demo2/)
+
+![demo2.png](./preview/demo2.png)
+
+### 3️⃣ [3D Performance Test](./demos/demo3/)
+
+![demo3.png](./preview/demo3.png)
