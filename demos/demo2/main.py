@@ -15,7 +15,8 @@ import tkintertools.toolbox as toolbox
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):  # 加载指定字体文件
     constants.FONT = "霞鹜文楷"  # 指定全局字体
 
-style.set_color_theme("./demos/demo2/theme")  # 设置自定义的颜色主题
+style.set_theme(light="mytheme", dark="mytheme",
+                folder="./demos/demo2")  # 设置自定义的颜色主题
 
 
 class Circle(shapes.Oval):
@@ -23,7 +24,7 @@ class Circle(shapes.Oval):
 
     def detect(self, x: int, y: int) -> bool:
         """自定义检测方式，半径小于指定大小则返回 True"""
-        return math.hypot(x-self.x-self.w/2, y-self.y-self.h/2) <= self.w/2
+        return math.hypot(x-self.position[0]-self.size[0]/2, y-self.position[1]-self.size[1]/2) <= self.size[0]/2
 
 
 class Piece(tkt.Widget):
@@ -36,9 +37,10 @@ class Piece(tkt.Widget):
         color: typing.Literal["white", "black"],
         text: str,
     ) -> None:
-        tkt.Widget.__init__(self, master, index_to_position(*position), (60, 60))
+        tkt.Widget.__init__(
+            self, master, index_to_position(*position), (60, 60))
         Circle(self, name=f".{color}")
-        texts.Information(self, text=text, size=32)
+        texts.Information(self, text=text, fontsize=32)
         features.Button(self, command=lambda: move_mark(self.bx, self.by))
         self.color = color
         self.bx, self.by = position
@@ -65,9 +67,11 @@ def move_cursor(event: tkinter.Event) -> None:
     x, y = event.x/k, event.y/k
     result = position_to_index(x, y)
     if result is not None and result != cursor_index:
-        delta = (result[0]-cursor_index[0])*125*k, (result[1]-cursor_index[1])*125*k
+        delta = (result[0]-cursor_index[0])*125 * \
+            k, (result[1]-cursor_index[1])*125*k
         cursor_index = result
-        animation.MoveItem(canvas, cursor, 240, delta, controller=animation.smooth, fps=60).start()
+        animation.MoveItem(canvas, cursor, 240, delta,
+                           controller=animation.smooth, fps=60).start()
 
 
 def move_mark(x: int, y: int) -> None:
@@ -96,7 +100,8 @@ def init() -> None:
         for y in range(5):
             if board[x][y] == -1:
                 cx, cy = x*125 + 20 + 30, y*125 + 20 + 30
-                canvas.create_oval(cx-30, cy-30, cx+30, cy+30, outline="black", fill=canvas["bg"])
+                canvas.create_oval(cx-30, cy-30, cx+30, cy+30,
+                                   outline="black", fill=canvas["bg"])
 
     Piece(canvas, (0, 0), "black", "将")
     Piece(canvas, (2, 0), "black", "将")
@@ -121,7 +126,8 @@ def click(event: tkinter.Event) -> None:
         if result in pos:
             dx, dy = result[0]-selected_piece.bx, result[1]-selected_piece.by
             delta = dx*125*k, dy*125*k
-            animation.MoveWidget(selected_piece, 500, delta, controller=animation.smooth, fps=60).start()
+            animation.MoveWidget(selected_piece, 500, delta,
+                                 controller=animation.smooth, fps=60).start()
             if ok[pos.index(result)][-1]:
                 kx, ky = result[0]-dx//2, result[1]-dy//2
                 board[kx][ky].destroy()
@@ -154,7 +160,8 @@ def is_one_line(c1: tuple[int, int], c2: tuple[int, int]) -> bool:
 def get_ok_pos(piece: Piece) -> list[tuple[int, int, bool]]:
     """获取指定棋子可走的位置"""
     x, y = piece.bx, piece.by
-    ok = list((*pos, False) for pos in filter(lambda p: board[p[0]][p[1]] == -1, GRAPH[(x, y)]))
+    ok = list((*pos, False)
+              for pos in filter(lambda p: board[p[0]][p[1]] == -1, GRAPH[(x, y)]))
     if piece.color == "white":
         for pos in GRAPH[(x, y)]:
             if board[pos[0]][pos[1]] != -1:
@@ -214,7 +221,8 @@ player: typing.Literal["white", "black"] = "white"  # 当前玩家
 
 root = tkt.Tk((600, 600), title="Project")  # 根窗口
 root.center()  # 窗口屏幕居中
-canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min", free_anchor=True)  # 主画布
+canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min",
+                    free_anchor=True)  # 主画布
 canvas.place(width=600, height=600, x=300, y=300, anchor="center")
 canvas.bind("<Motion>", move_cursor, add="+")  # 绑定鼠标移动事件
 canvas.bind("<Button-1>", click, add="+")  # 绑定鼠标左键点击事件
@@ -222,7 +230,8 @@ canvas["bg"] = "#d57125"  # 设定画布背景颜色
 
 init()  # 绘制棋盘
 
-cursor = canvas.create_oval(300-30-5, 300-30-5, 300+30+5, 300+30+5, dash="-", outline="white")  # 游标初始化
+cursor = canvas.create_oval(
+    300-30-5, 300-30-5, 300+30+5, 300+30+5, dash="-", outline="white")  # 游标初始化
 mark = canvas.create_oval(0, 0, 0, 0, outline="red", width=2)  # 标记点初始化
 
 root.mainloop()  # 进入事件循环

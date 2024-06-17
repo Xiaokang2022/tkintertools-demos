@@ -21,7 +21,7 @@ def colorful(colortup: tuple[str, str]) -> None:
 
 
 def alert(text: str) -> None:
-    hint.texts[0].set(text)
+    hint._texts[0].set(text)
     animation.MoveWidget(
         hint, 500, (0, -130*space.ratios[1]), controller=animation.rebound, fps=60).start()
     animation.MoveWidget(
@@ -88,7 +88,7 @@ space.place(width=1280, height=720, x=640, y=360, anchor="center")
 colorlines = [space.create_line(i, 0, i, 720, width=3, fill="")
               for i in range(1280)]
 
-switch_theme(style.DARK_MODE)
+switch_theme(style.get_color_mode() == "dark")
 
 text3ds = []
 geos = []
@@ -131,15 +131,15 @@ an = animation.Animation(2000, animation.flat, callback=_callback,
 
 login_widgets = [
     DummyFrame(space, (450, 70), (400, 560), name="Label"),
-    tkt.Switch(space, (320+450, 20+70),
-               default=style.DARK_MODE, command=switch_theme),
+    tkt.Switch(space, (330+450, 20+70),
+               default=style.get_color_mode() == "dark", command=switch_theme),
     tkt.CheckButton(space, (20+450, 20+70),
                     command=lambda flag: an.start() if flag else an.stop()),
     tkt.Information(space, (200+450, 80+70), text="Login",
                     fontsize=48, weight="bold"),
-    tkt.Information(space, (80+450, 170+70), text="Account "),
+    tkt.Information(space, (30+450, 170+70), anchor="w", text="Account"),
     tkt.Entry(space, (25+450, 190+70), (350, 50)),
-    tkt.Information(space, (80+450, 280+70), text="Password"),
+    tkt.Information(space, (30+450, 280+70), anchor="w", text="Password"),
     tkt.Entry(space, (25+450, 300+70), (350, 50)),
     tkt.Button(space, (25+450, 380+70), (350, 55),
                text="Login", name="", command=lambda: alert("Login Success!")),
@@ -148,17 +148,17 @@ login_widgets = [
     tkt.UnderlineButton(space, (340+450, 470+70),
                         text="Sign up", fontsize=18, command=move_right)
 ]
-login_widgets[-3].shapes[0].styles = {"normal": {"fill": "#B3C1EE", "outline": "grey"},
-                                      "hover": {"fill": "#EEC1EB", "outline": "grey"}}
+login_widgets[-3]._shapes[0].styles = {"normal": {"fill": "#B3C1EE", "outline": "grey"},
+                                       "hover": {"fill": "#EEC1EB", "outline": "grey"}}
 login_widgets[-3].update()
 
 signup_widgets = [
     DummyFrame(space, (450-900, 70), (400, 560), name="Label"),
     tkt.Information(space, (200+450-900, 80+70),
                     text="Sign up", fontsize=48, weight="bold"),
-    tkt.Information(space, (80+450-900, 170+70), text="Account "),
+    tkt.Information(space, (30+450-900, 170+70), anchor="w", text="Account"),
     tkt.Entry(space, (25+450-900, 190+70), (350, 50)),
-    tkt.Information(space, (80+450-900, 280+70), text="Password"),
+    tkt.Information(space, (30+450-900, 280+70), anchor="w", text="Password"),
     tkt.Entry(space, (25+450-900, 300+70), (350, 50)),
     tkt.Button(space, (25+450-900, 380+70), (350, 55),
                text="Sign Up", name="", command=lambda: alert("Sign Up Success!")),
@@ -167,8 +167,8 @@ signup_widgets = [
     tkt.UnderlineButton(space, (350+450-900, 470+70),
                         text="Login", fontsize=18, command=move_left)
 ]
-signup_widgets[-3].shapes[0].styles = {"normal": {"fill": "#00BFA5", "outline": "grey"},
-                                       "hover": {"fill": "#448AFF", "outline": "grey"}}
+signup_widgets[-3]._shapes[0].styles = {"normal": {"fill": "#00BFA5", "outline": "grey"},
+                                        "hover": {"fill": "#448AFF", "outline": "grey"}}
 signup_widgets[-3].update()
 
 hint = tkt.Label(space, (960, 730), (300, 100))

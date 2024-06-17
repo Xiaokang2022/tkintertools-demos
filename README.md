@@ -29,3 +29,9 @@ Official demos for tkintertools package
 ### 3️⃣ [3D Performance Test](./demos/demo3/)
 
 ![demo3.png](./preview/demo3.png)
+
+### 4️⃣ [Matplotlib Test](./demos/demo4/)
+
+![demo4-1.png](./preview/demo4-1.png)
+
+![demo4-2.png](./preview/demo4-2.png)
