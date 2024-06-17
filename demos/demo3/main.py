@@ -3,7 +3,7 @@ import time
 import tkintertools as tkt
 import tkintertools.three as three
 
-root = tkt.Tk(title="Demo")
+root = tkt.Tk(title="3D Performance Test")
 
 space = three.Space(root, zoom_item=True, free_anchor=True, keep_ratio="min")
 space.place(width=1280, height=720, x=640, y=360, anchor="center")

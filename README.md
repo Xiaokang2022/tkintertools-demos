@@ -16,22 +16,32 @@ Official demos for tkintertools package
 
 ### 0️⃣ [Basic Test](./demos/demo0/)
 
-![demo0.png](./preview/demo0.png)
+![](./preview/demo0-1.png)
 
-### 1️⃣ [Login Window](./demos/demo1/)
+![](./preview/demo0-2.png)
 
-![demo1.png](./preview/demo1.png)
+### 1️⃣ [Simple Project](./demos/demo1/)
+
+![](./preview/demo1-1.png)
+
+![](./preview/demo1-2.png)
 
 ### 2️⃣ [Simple Game](./demos/demo2/)
 
-![demo2.png](./preview/demo2.png)
+![](./preview/demo2.png)
 
 ### 3️⃣ [3D Performance Test](./demos/demo3/)
 
-![demo3.png](./preview/demo3.png)
+![](./preview/demo3.png)
 
 ### 4️⃣ [Matplotlib Test](./demos/demo4/)
 
-![demo4-1.png](./preview/demo4-1.png)
+![](./preview/demo4-1.png)
 
-![demo4-2.png](./preview/demo4-2.png)
+![](./preview/demo4-2.png)
+
+### 5️⃣ [Matplotlib Project](./demos/demo5/)
+
+![](./preview/demo5-1.png)
+
+![](./preview/demo5-2.png)

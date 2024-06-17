@@ -16,7 +16,7 @@ import tkintertools.style as style
 import tkintertools.three as three
 import tkintertools.toolbox as toolbox
 
-root = tkt.Tk(title=f"{tkt.__name__} {tkt.__version__}")
+root = tkt.Tk(title=f"{tkt.__name__} {tkt.__version__} - Basic Test")
 root.alpha(0.95)
 root.center()
 canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min", free_anchor=True)
@@ -24,6 +24,8 @@ canvas.place(width=1280, height=720, x=640, y=360, anchor="center")
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
     constants.FONT = "霞鹜文楷"
+
+constants.SIZE = -24
 
 ORIGIN_SYSTEM = constants.SYSTEM
 

@@ -80,7 +80,7 @@ class Space(three.Canvas):
             self.lower(item.item, colorlines[-1])
 
 
-root = tkt.Tk(title="Login")
+root = tkt.Tk(title="Simple Project - Login Window")
 root.alpha(0.93)
 space = Space(root, zoom_item=True, free_anchor=True, keep_ratio="max")
 space.place(width=1280, height=720, x=640, y=360, anchor="center")

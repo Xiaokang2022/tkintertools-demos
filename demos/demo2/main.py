@@ -219,7 +219,7 @@ cursor_index = 2, 2  # 游标位置
 selected_piece: Piece | None = None  # 当前被选中的棋子
 player: typing.Literal["white", "black"] = "white"  # 当前玩家
 
-root = tkt.Tk((600, 600), title="Project")  # 根窗口
+root = tkt.Tk((600, 600), title="Simple Game")  # 根窗口
 root.center()  # 窗口屏幕居中
 canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min",
                     free_anchor=True)  # 主画布
