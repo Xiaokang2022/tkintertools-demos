@@ -85,6 +85,14 @@ root.alpha(0.93)
 space = Space(root, zoom_item=True, free_anchor=True, keep_ratio="max")
 space.place(width=1280, height=720, x=640, y=360, anchor="center")
 
+style.customize_window(
+    root,
+    # style="acrylic",
+    # hide_title_bar=True,
+    # hide_button="all",
+    # boarder_type="smallround",
+)
+
 colorlines = [space.create_line(i, 0, i, 720, width=3, fill="")
               for i in range(1280)]
 
