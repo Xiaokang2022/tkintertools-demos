@@ -22,7 +22,7 @@ root.center()
 canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min", free_anchor=True)
 canvas.place(width=1280, height=720, x=640, y=360, anchor="center")
 
-if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
+if toolbox.load_font("../../assets/fonts/LXGWWenKai-Regular.ttf"):
     constants.FONT = "霞鹜文楷"
 
 constants.SIZE = -24
@@ -30,7 +30,7 @@ constants.SIZE = -24
 ORIGIN_SYSTEM = constants.SYSTEM
 
 canvas.create_image(640, 360, image=tkt.PhotoImage(
-    file=f"./assets/images/{style.get_color_mode()}.png"))
+    file=f"../../assets/images/{style.get_color_mode()}.png"))
 
 """
 Data Card (RGBA - Experimental)
