@@ -1,1 +1,1 @@
-tkintertools==3.0.0b3
+tkintertools==3.0.0b4

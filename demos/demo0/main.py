@@ -1,7 +1,5 @@
-import itertools
 import math
 import random
-import statistics
 import webbrowser
 
 import tkintertools as tkt
@@ -13,7 +11,6 @@ import tkintertools.standard.features as features  # Customied
 import tkintertools.standard.shapes as shapes  # Customied
 import tkintertools.standard.texts as texts  # Customied
 import tkintertools.style as style
-import tkintertools.three as three
 import tkintertools.toolbox as toolbox
 
 root = tkt.Tk(title=f"{tkt.__name__} {tkt.__version__} - Basic Test")
@@ -36,7 +33,7 @@ canvas.create_image(640, 360, image=tkt.PhotoImage(
 Data Card (RGBA - Experimental)
 """
 
-_l = tkt.Label(canvas, (620, 390), (240, 310), name="")
+_l = tkt.Label(canvas, (620, 390), (240, 310), text="", name="")
 _l._shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
                         "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
 _l.update()
@@ -330,59 +327,5 @@ tkt.Information(canvas, (580, 540 + 15), text="On").disabled()
 
 tkt.Entry(canvas, (50 + 280, 595 - 5), (270, 50))
 tkt.Entry(canvas, (50 + 280, 655 - 5), (270, 50)).disabled()
-
-"""
-Here's the 3D part
-"""
-
-
-space = three.Space(canvas, free_anchor=True, zoom_item=True)
-space.place(width=360, height=360, x=900, y=20)
-space.update()
-
-m = 150 * math.sqrt(50 - 10 * math.sqrt(5)) / 10
-n = 150 * math.sqrt(50 + 10 * math.sqrt(5)) / 10
-points = []
-dis_side = 150 * (3 * math.sqrt(3) + math.sqrt(15)) / 12 / \
-    ((math.sqrt(10 + 2 * math.sqrt(5))) / 4)
-count, color_lst = 0, ['00', '77', 'FF']
-colors = [f'#{r}{g}{b}' for r in color_lst for g in color_lst for b in color_lst]
-
-for i in m, -m:
-    for j in n, -n:
-        points.append([0, j, i])
-        points.append([i, 0, j])
-        points.append([j, i, 0])
-
-for p in itertools.combinations(points, 3):
-    dis = math.hypot(*[statistics.mean(c[i] for c in p) for i in range(3)])
-    if math.isclose(dis, dis_side):
-        three.Plane(space, *p, fill=colors[count], outline='grey')
-        count += 1
-
-
-space.space_sort()
-
-
-count = 0
-
-
-def _callback(_: float) -> None:
-    """callback function of animation"""
-    global count
-    count += 0.08
-    for item in space.components:
-        item.rotate(dy=-0.01, dz=0.02)
-        item.translate(dz=math.sin(count))
-        item.update()
-    space.space_sort()
-
-
-an = animation.Animation(2000, animation.flat, callback=_callback,
-                         fps=60, repeat=-1, derivation=True)
-
-
-tkt.Switch(space, (10, 10), command=lambda flag: an.start()
-           if flag else an.stop())
 
 root.mainloop()
