@@ -356,6 +356,8 @@ tkt.IconButton(canvas, (900, 250), (130, 40), text="Python", image=tkt.PhotoImag
     file="./assets/images/logo-Python.png"), name="Button")
 tkt.IconButton(canvas, (1040, 250), (100, 40), text="Java", image=tkt.PhotoImage(
     file="./assets/images/logo-Java.png"), name="Button")
+tkt.IconButton(canvas, (1150, 250), (90, 40), text="TKT", image=tkt.PhotoImage(
+    file="./assets/images/logo.png"), name="Button")
 
 tkt.IconButton(canvas, (900, 350), (150, 40), text="Windows", image=tkt.PhotoImage(
     file="./assets/images/logo-Windows.png"), name="Button")

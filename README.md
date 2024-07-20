@@ -30,7 +30,7 @@ Official demos for tkintertools package
 
 ![](./preview/demo2.png)
 
-### 3️⃣ [3D Performance Test](./demos/demo3/)
+### 3️⃣ [Simple Login Window](./demos/demo3/)
 
 ![](./preview/demo3.png)
 
