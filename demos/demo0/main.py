@@ -328,4 +328,38 @@ tkt.Information(canvas, (580, 540 + 15), text="On").disabled()
 tkt.Entry(canvas, (50 + 280, 595 - 5), (270, 50))
 tkt.Entry(canvas, (50 + 280, 655 - 5), (270, 50)).disabled()
 
+i1 = tkt.Information(canvas, (1210, 20), text="0%", anchor="nw")
+tkt.Slider(canvas, (900, 20), (300, 30),
+           command=lambda k: i1._texts[0].set(f"{int(k*100):d}%")).set(0.33)
+tkt.Slider(canvas, (900, 60), (300, 30)).disabled()
+
+tkt.IconButton(canvas, (900, 200), (70, 40), text="C", image=tkt.PhotoImage(
+    file="./assets/images/logo-C.png"), name="Button")
+tkt.IconButton(canvas, (980, 200), (100, 40), text="C++", image=tkt.PhotoImage(
+    file="./assets/images/logo-C++.png"), name="Button")
+tkt.IconButton(canvas, (1090, 200), (90, 40), text="C#", image=tkt.PhotoImage(
+    file="./assets/images/logo-C#.png"), name="Button")
+
+tkt.IconButton(canvas, (900, 300), (160, 40), text="Minecraft", image=tkt.PhotoImage(
+    file="./assets/images/logo-Minecraft.png"), name="Button")
+tkt.IconButton(canvas, (1070, 300), (130, 40), text="Ubuntu", image=tkt.PhotoImage(
+    file="./assets/images/logo-Ubuntu.png"), name="Button")
+
+constants.SYSTEM = "Windows11"
+
+i2 = tkt.Information(canvas, (1210, 100), text="0%", anchor="nw")
+tkt.Slider(canvas, (900, 100), (300, 30),
+           command=lambda k: i2._texts[0].set(f"{int(k*100):d}%")).set(0.66)
+tkt.Slider(canvas, (900, 140), (300, 30)).disabled()
+
+tkt.IconButton(canvas, (900, 250), (130, 40), text="Python", image=tkt.PhotoImage(
+    file="./assets/images/logo-Python.png"), name="Button")
+tkt.IconButton(canvas, (1040, 250), (100, 40), text="Java", image=tkt.PhotoImage(
+    file="./assets/images/logo-Java.png"), name="Button")
+
+tkt.IconButton(canvas, (900, 350), (150, 40), text="Windows", image=tkt.PhotoImage(
+    file="./assets/images/logo-Windows.png"), name="Button")
+tkt.IconButton(canvas, (1060, 350), (110, 40), text="Linux", image=tkt.PhotoImage(
+    file="./assets/images/logo-Linux.png"), name="Button")
+
 root.mainloop()
