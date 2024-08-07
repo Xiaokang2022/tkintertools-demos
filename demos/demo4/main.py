@@ -1,8 +1,8 @@
 import matplotlib.figure as figure
 import numpy
 import tkintertools as tkt
+import tkintertools.mpl as mpl
 import tkintertools.style as style
-import tkintertools.toolbox.mpl as mpl
 
 mpl.set_mpl_default_theme(style.get_color_mode() == "dark")
 

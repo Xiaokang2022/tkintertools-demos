@@ -6,15 +6,14 @@ import tkintertools as tkt
 import tkintertools.animation as animation
 import tkintertools.color as color
 import tkintertools.core.constants as constants
-import tkintertools.standard.dialogs as dialogs  # Customied
-import tkintertools.standard.features as features  # Customied
-import tkintertools.standard.shapes as shapes  # Customied
-import tkintertools.standard.texts as texts  # Customied
+import tkintertools.standard.dialogs as dialogs
+import tkintertools.standard.features as features
+import tkintertools.standard.shapes as shapes
+import tkintertools.standard.texts as texts
 import tkintertools.style as style
 import tkintertools.toolbox as toolbox
 
 root = tkt.Tk(title=f"{tkt.__name__} {tkt.__version__} - Basic Test")
-root.alpha(0.95)
 root.center()
 canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min", free_anchor=True)
 canvas.place(width=1280, height=720, x=640, y=360, anchor="center")
@@ -26,19 +25,22 @@ constants.SIZE = -24
 
 ORIGIN_SYSTEM = constants.SYSTEM
 
-canvas.create_image(640, 360, image=tkt.PhotoImage(
+img = tkt.Image(canvas, (640, 360), image=tkt.PhotoImage(
     file=f"./assets/images/{style.get_color_mode()}.png"))
+
+style.register_event(lambda theme: img.set(tkt.PhotoImage(
+    file=f"./assets/images/{("light", "dark")[theme]}.png")))
 
 """
 Data Card (RGBA - Experimental)
 """
 
-_l = tkt.Label(canvas, (620, 390), (240, 310), text="", name="")
+_l = tkt.Label(canvas, (620, 390), (240, 310), name="")
 _l._shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
                         "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
 _l.update()
 
-tkt.Information(canvas, (740, 430), text="— RGBA Card —")
+tkt.Text(canvas, (740, 430), text="— RGBA Card —")
 tkt.UnderlineButton(canvas, (740, 490), text="Home Page", through=True,
                     command=lambda: webbrowser.open_new_tab("https://xiaokang2022.github.io/tkintertools/"))
 tkt.UnderlineButton(canvas, (740, 530), text="GitHub (Source)", through=True,
@@ -101,7 +103,7 @@ class MyToplevel(tkt.Toplevel):
         self.shape = random.choice([shapes.Rectangle, shapes.Oval, shapes.Parallelogram, shapes.SharpRectangle,
                                    shapes.RegularPolygon, shapes.RoundedRectangle, shapes.SemicircularRectangle])
         self.feature = random.choice(
-            [features.Label, features.Button, features.Underline, features.Highlight])
+            [features.LabelFeature, features.ButtonFeature, features.Underline, features.Highlight])
         self.text = texts.Information
         self.widget = tkt.Widget(self.canvas, (300, 162), (120, 80))
         kw = {}
@@ -151,13 +153,13 @@ class MyToplevel(tkt.Toplevel):
 Below is the section of the style following system
 """
 
-tkt.Switch(canvas, (50, 35), command=lambda b: style.set_color_mode(
-    "dark" if b else "light"), default=style.SYSTEM_DARK_MODE)
+tkt.Switch(canvas, (50, 35), command=lambda b: (style.set_color_mode(
+    "dark" if b else "light")), default=style.get_color_mode() == "dark")
 tkt.CheckButton(canvas, (125, 35), command=root.fullscreen)
 
 
-i = canvas.create_text(
-    440, 50, text="tkintertools 3: a Brand New UI Framework", font=26)
+i = tkt.Text(canvas, (440, 50),
+             text="tkintertools 3: a Brand New UI Framework", fontsize=26, name="")
 
 tkt.HighlightButton(canvas, (790, 50), text="Get More!", command=MyToplevel)
 
@@ -169,7 +171,7 @@ tkt.Button(canvas, (900, 525), (360, 50),
            text="Call a Color Chooser", command=dialogs.TkColorChooser)
 
 info = tkt.Button(canvas, (900, 585), (175, 50), name="",
-                  text="Info", command=lambda: dialogs.TkMessage(icon="info"))
+                  text="Information", command=lambda: dialogs.TkMessage(icon="info"))
 info._shapes[0].styles = {"normal": {"fill": "skyblue", "outline": "grey"}}
 info.update()
 question = tkt.Button(canvas, (900 + 185, 585), (175, 50), name="",
@@ -192,7 +194,7 @@ contast_color = color.rgb_to_str(
     color.contrast(color.str_to_rgb(random_color)))
 
 
-animation.GradientItem(canvas, i, "fill", 2000, (random_color, contast_color),
+animation.GradientItem(canvas, i._texts[0].items[0], "fill", 2000, (random_color, contast_color),
                        repeat=-1, controller=lambda x: math.sin(x*math.pi)).start()
 
 
@@ -247,24 +249,24 @@ animation.Animation(2000, animation.smooth, callback=pb4.set,
                     fps=60, repeat=math.inf).start()
 
 tkt.CheckButton(canvas, (50, 390))
-tkt.Information(canvas, (165, 390 + 15), text="CheckButton")
+tkt.Text(canvas, (165, 390 + 15), text="CheckButton")
 tkt.RadioButton(canvas, (250, 390 + 3))
-tkt.Information(canvas, (355, 390 + 15), text="RadioButton")
-tkt.Information(canvas, (460, 390 + 15), text="Off")
+tkt.Text(canvas, (355, 390 + 15), text="RadioButton")
+tkt.Text(canvas, (460, 390 + 15), text="Off")
 tkt.Switch(canvas, (490, 390))
-tkt.Information(canvas, (580, 390 + 15), text="On")
+tkt.Text(canvas, (580, 390 + 15), text="On")
 
 tkt.CheckButton(canvas, (50, 440), default=True).disabled()
-tkt.Information(canvas, (165, 440 + 15), text="CheckButton").disabled()
+tkt.Text(canvas, (165, 440 + 15), text="CheckButton").disabled()
 tkt.RadioButton(canvas, (250, 440 + 3), default=True).disabled()
-tkt.Information(canvas, (355, 440 + 15), text="RadioButton").disabled()
-tkt.Information(canvas, (460, 440 + 15), text="Off").disabled()
+tkt.Text(canvas, (355, 440 + 15), text="RadioButton").disabled()
+tkt.Text(canvas, (460, 440 + 15), text="Off").disabled()
 tkt.Switch(canvas, (490, 440), default=True).disabled()
-tkt.Information(canvas, (580, 440 + 15), text="On").disabled()
+tkt.Text(canvas, (580, 440 + 15), text="On").disabled()
 
-tkt.Entry(canvas, (50, 595 - 5), (270, 50))
-e = tkt.Entry(canvas, (50, 655 - 5), (270, 50))
-e.set("Entry")
+tkt.InputBox(canvas, (50, 595 - 5), (270, 50), placeholder="Placeholder")
+e = tkt.InputBox(canvas, (50, 655 - 5), (270, 50))
+e.set("Input")
 e.disabled()
 
 constants.SYSTEM = "Windows10"
@@ -310,58 +312,58 @@ animation.Animation(2000, animation.flat, callback=pb8.set,
                     fps=60, repeat=math.inf).start(delay=1500)
 
 tkt.CheckButton(canvas, (50, 490))
-tkt.Information(canvas, (165, 490 + 15), text="CheckButton")
+tkt.Text(canvas, (165, 490 + 15), text="CheckButton")
 tkt.RadioButton(canvas, (250, 490 + 3))
-tkt.Information(canvas, (355, 490 + 15), text="RadioButton")
-tkt.Information(canvas, (460, 490 + 15), text="Off")
+tkt.Text(canvas, (355, 490 + 15), text="RadioButton")
+tkt.Text(canvas, (460, 490 + 15), text="Off")
 tkt.Switch(canvas, (490, 490))
-tkt.Information(canvas, (580, 490 + 15), text="On")
+tkt.Text(canvas, (580, 490 + 15), text="On")
 
 tkt.CheckButton(canvas, (50, 540)).disabled()
-tkt.Information(canvas, (165, 540 + 15), text="CheckButton").disabled()
+tkt.Text(canvas, (165, 540 + 15), text="CheckButton").disabled()
 tkt.RadioButton(canvas, (250, 540 + 3)).disabled()
-tkt.Information(canvas, (355, 540 + 15), text="RadioButton").disabled()
-tkt.Information(canvas, (460, 540 + 15), text="Off").disabled()
+tkt.Text(canvas, (355, 540 + 15), text="RadioButton").disabled()
+tkt.Text(canvas, (460, 540 + 15), text="Off").disabled()
 tkt.Switch(canvas, (490, 540)).disabled()
-tkt.Information(canvas, (580, 540 + 15), text="On").disabled()
+tkt.Text(canvas, (580, 540 + 15), text="On").disabled()
 
-tkt.Entry(canvas, (50 + 280, 595 - 5), (270, 50))
-tkt.Entry(canvas, (50 + 280, 655 - 5), (270, 50)).disabled()
+tkt.InputBox(canvas, (50 + 280, 595 - 5), (270, 50))
+tkt.InputBox(canvas, (50 + 280, 655 - 5), (270, 50)).disabled()
 
-i1 = tkt.Information(canvas, (1210, 20), text="0%", anchor="nw")
+i1 = tkt.Text(canvas, (1210, 20), text="0%", anchor="nw")
 tkt.Slider(canvas, (900, 20), (300, 30),
-           command=lambda k: i1._texts[0].set(f"{int(k*100):d}%")).set(0.33)
+           command=lambda k: (i1.set(f"{int(k*100):d}%"), root.alpha(k))).set(0.95)
 tkt.Slider(canvas, (900, 60), (300, 30)).disabled()
 
-tkt.IconButton(canvas, (900, 200), (70, 40), text="C", image=tkt.PhotoImage(
-    file="./assets/images/logo-C.png"), name="Button")
-tkt.IconButton(canvas, (980, 200), (100, 40), text="C++", image=tkt.PhotoImage(
-    file="./assets/images/logo-C++.png"), name="Button")
-tkt.IconButton(canvas, (1090, 200), (90, 40), text="C#", image=tkt.PhotoImage(
-    file="./assets/images/logo-C#.png"), name="Button")
+tkt.IconButton(canvas, (900, 200), text="C", image=tkt.PhotoImage(
+    file="./assets/images/logo-C.png"))
+tkt.IconButton(canvas, (980, 200), text="C++", image=tkt.PhotoImage(
+    file="./assets/images/logo-C++.png"))
+tkt.IconButton(canvas, (1090, 200), text="C#", image=tkt.PhotoImage(
+    file="./assets/images/logo-C#.png"))
 
-tkt.IconButton(canvas, (900, 300), (160, 40), text="Minecraft", image=tkt.PhotoImage(
-    file="./assets/images/logo-Minecraft.png"), name="Button")
-tkt.IconButton(canvas, (1070, 300), (130, 40), text="Ubuntu", image=tkt.PhotoImage(
-    file="./assets/images/logo-Ubuntu.png"), name="Button")
+tkt.IconButton(canvas, (900, 300), text="Minecraft", image=tkt.PhotoImage(
+    file="./assets/images/logo-Minecraft.png"))
+tkt.IconButton(canvas, (1070, 300), text="Ubuntu", image=tkt.PhotoImage(
+    file="./assets/images/logo-Ubuntu.png"))
 
 constants.SYSTEM = "Windows11"
 
-i2 = tkt.Information(canvas, (1210, 100), text="0%", anchor="nw")
+i2 = tkt.Text(canvas, (1210, 100), text="0%", anchor="nw")
 tkt.Slider(canvas, (900, 100), (300, 30),
-           command=lambda k: i2._texts[0].set(f"{int(k*100):d}%")).set(0.66)
+           command=lambda k: i2.set(f"{int(k*100):d}%")).set(0.5)
 tkt.Slider(canvas, (900, 140), (300, 30)).disabled()
 
-tkt.IconButton(canvas, (900, 250), (130, 40), text="Python", image=tkt.PhotoImage(
-    file="./assets/images/logo-Python.png"), name="Button")
-tkt.IconButton(canvas, (1040, 250), (100, 40), text="Java", image=tkt.PhotoImage(
-    file="./assets/images/logo-Java.png"), name="Button")
-tkt.IconButton(canvas, (1150, 250), (90, 40), text="TKT", image=tkt.PhotoImage(
-    file="./assets/images/logo.png"), name="Button")
+tkt.IconButton(canvas, (900, 250), text="Python", image=tkt.PhotoImage(
+    file="./assets/images/logo-Python.png"))
+tkt.IconButton(canvas, (1040, 250), text="Java", image=tkt.PhotoImage(
+    file="./assets/images/logo-Java.png"))
+tkt.IconButton(canvas, (1150, 250), text="TKT", image=tkt.PhotoImage(
+    file="./assets/images/logo.png"))
 
-tkt.IconButton(canvas, (900, 350), (150, 40), text="Windows", image=tkt.PhotoImage(
-    file="./assets/images/logo-Windows.png"), name="Button")
-tkt.IconButton(canvas, (1060, 350), (110, 40), text="Linux", image=tkt.PhotoImage(
-    file="./assets/images/logo-Linux.png"), name="Button")
+tkt.IconButton(canvas, (900, 350), text="Windows", image=tkt.PhotoImage(
+    file="./assets/images/logo-Windows.png"))
+tkt.IconButton(canvas, (1060, 350), text="Linux", image=tkt.PhotoImage(
+    file="./assets/images/logo-Linux.png"))
 
 root.mainloop()

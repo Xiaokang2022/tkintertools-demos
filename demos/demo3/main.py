@@ -12,20 +12,20 @@ class LoginToplevel(tkt.Toplevel):
         canvas = tkt.Canvas(self)
         canvas.place(width=480, height=720)
 
-        self.sub_title = tkt.Information(
+        self.sub_title = tkt.Text(
             canvas, (240, 45), text="登录到你的账号", fontsize=36)
 
         canvas.create_oval(120, 90, 360, 330, outline="grey")
         canvas.create_text(240, 210, text="用户\n头像", fill="grey", font=30)
 
-        self.account = tkt.Entry(
+        self.account = tkt.InputBox(
             canvas, (40, 360), (400, 50), placeholder="请输入您的账号")
-        self.password = tkt.Entry(
+        self.password = tkt.InputBox(
             canvas, (40, 430), (400, 50), placeholder="请输入您的密码", show="●")
         self.an = tkt.Button(canvas, (40, 500), (190, 50),
                              text="注 册", command=self.animate)
         self.login = tkt.Button(canvas, (250, 500), (190, 50), text="登 录")
-        self.password_verify = tkt.Entry(
+        self.password_verify = tkt.InputBox(
             canvas, (40, 500+300), (400, 50), placeholder="请再次输入您的密码", show="●")
         self.registry = tkt.Button(
             canvas, (40-300, 570), (190, 50), text="注 册")
@@ -34,10 +34,10 @@ class LoginToplevel(tkt.Toplevel):
 
         self.forget = tkt.UnderlineButton(
             canvas, (140, 600), text="忘记密码", fontsize=20)
-        self.sep = tkt.Information(canvas, (190, 600), text="|")
+        self.sep = tkt.Text(canvas, (190, 600), text="|")
         self.find = tkt.UnderlineButton(
             canvas, (240, 600), text="找回账号", fontsize=20)
-        self.sep_2 = tkt.Information(canvas, (290, 600), text="|")
+        self.sep_2 = tkt.Text(canvas, (290, 600), text="|")
         self.net = tkt.UnderlineButton(
             canvas, (340, 600), text="网络设置", fontsize=20)
         self.animation_lock = False  # 防熊

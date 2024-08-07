@@ -8,9 +8,9 @@ import numpy
 import PIL.Image as Image
 import PIL.ImageTk as ImageTk
 import tkintertools as tkt
+import tkintertools.mpl as mpl
 import tkintertools.standard.dialogs as dialogs
 import tkintertools.style as style
-import tkintertools.toolbox.mpl as mpl
 
 
 def get_offset(image1: Image.Image, image2: Image.Image, side: int) -> list[list[tuple[int, int]]]:
@@ -248,12 +248,12 @@ toolbar.pack(fill="x")
 canvas.pack(side="bottom", fill="x")
 figure_canvas.pack(expand=True, fill="both")
 
-tkt.Information(canvas, (20, 10), text="滑动窗口边长", anchor="nw")
-SIDE = tkt.Entry(canvas, (20, 50), (200, 50))
+tkt.Text(canvas, (20, 10), text="滑动窗口边长", anchor="nw")
+SIDE = tkt.InputBox(canvas, (20, 50), (200, 50))
 SIDE.set("24")
 
-tkt.Information(canvas, (260, 10), text="滑动窗口索引", anchor="nw")
-INDEX = tkt.Entry(canvas, (260, 50), (200, 50))
+tkt.Text(canvas, (260, 10), text="滑动窗口索引", anchor="nw")
+INDEX = tkt.InputBox(canvas, (260, 50), (200, 50))
 INDEX.set("(0, 0)")
 
 pb = tkt.ProgressBar(canvas, (500, 15))
@@ -263,17 +263,17 @@ c = tkt.Button(canvas, (500, 50), (120, 50), text="计算", command=lambda: thre
 tkt.Button(canvas, (640, 50), (120, 50), text="显示", command=show)
 tkt.Button(canvas, (780, 50), (120, 50), text="打开", command=open_images)
 
-tkt.Information(canvas, (990, 30), text="明亮模式")
-tkt.Information(canvas, (1170, 30), text="黑暗模式")
-tkt.Information(canvas, (990, 80), text="速度矢量")
-tkt.Information(canvas, (1170, 80), text="相关系数")
+tkt.Text(canvas, (990, 30), text="明亮模式")
+tkt.Text(canvas, (1170, 30), text="黑暗模式")
+tkt.Text(canvas, (990, 80), text="速度矢量")
+tkt.Text(canvas, (1170, 80), text="相关系数")
 
 tkt.Switch(canvas, (1050, 15), 60, default=style.get_color_mode() == "dark",
            command=lambda b: style.set_color_mode("dark" if b else "light"))
 tkt.Switch(canvas, (1050, 65), 60, command=set_calc_mode)
 
-a = tkt.Information(canvas, (1270, 20),
-                    text="最佳结果: (-, -), -1.00", anchor="nw")
-b = tkt.Information(canvas, (1270, 60), text="计算耗时: 0.000 s", anchor="nw")
+a = tkt.Text(canvas, (1270, 20),
+             text="最佳结果: (-, -), -1.00", anchor="nw")
+b = tkt.Text(canvas, (1270, 60), text="计算耗时: 0.000 s", anchor="nw")
 
 root.mainloop()

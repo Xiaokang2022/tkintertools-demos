@@ -5,6 +5,7 @@ import typing
 import tkintertools as tkt
 import tkintertools.animation as animation
 import tkintertools.core.constants as constants
+import tkintertools.core.virtual as virtual
 import tkintertools.standard.dialogs as dialogs
 import tkintertools.standard.features as features
 import tkintertools.standard.shapes as shapes
@@ -15,8 +16,8 @@ import tkintertools.toolbox as toolbox
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):  # 加载指定字体文件
     constants.FONT = "霞鹜文楷"  # 指定全局字体
 
-style.set_theme(light="mytheme", dark="mytheme",
-                folder="./demos/demo2")  # 设置自定义的颜色主题
+# style.set_theme_map(light="./demos/demo2/mytheme", dark="./demos/demo2/mytheme",
+#                 folder="./demos/demo2")  # 设置自定义的颜色主题
 
 
 class Circle(shapes.Oval):
@@ -41,10 +42,36 @@ class Piece(tkt.Widget):
             self, master, index_to_position(*position), (60, 60))
         Circle(self, name=f".{color}")
         texts.Information(self, text=text, fontsize=32)
-        features.Button(self, command=lambda: move_mark(self.bx, self.by))
+        features.ButtonFeature(
+            self, command=lambda: move_mark(self.bx, self.by))
         self.color = color
         self.bx, self.by = position
         board[self.bx][self.by] = self
+
+
+class Board(virtual.Shape):
+
+    def display(self) -> None:
+        self.items = [
+            canvas.create_line(50, 50, 550, 550, fill="black"),
+            canvas.create_line(550, 50, 50, 550, fill="black"),
+            canvas.create_line(300, 50, 300, 550, fill="black"),
+            canvas.create_line(50, 50, 550, 50, fill="black"),
+            canvas.create_line(50, 550, 550, 550, fill="black"),
+            canvas.create_line(175, 175, 425, 175, fill="black"),
+            canvas.create_line(175, 425, 425, 425, fill="black"),
+            canvas.create_line(175, 300, 425, 300, fill="black"),
+        ]
+
+        for x in range(5):
+            for y in range(5):
+                if board[x][y] == -1:
+                    cx, cy = x*125 + 20 + 30, y*125 + 20 + 30
+                    canvas.create_oval(cx-30, cy-30, cx+30, cy+30,
+                                       outline="black", fill=canvas["bg"])
+
+    def coords(self, size: tuple[float, float] | None = None, position: tuple[float, float] | None = None) -> None:
+        return super().coords(size, position)
 
 
 def index_to_position(x: int, y: int) -> tuple[int, int]:
