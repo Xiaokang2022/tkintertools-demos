@@ -4,6 +4,7 @@ All official demos for tkintertools package
 
 🚀 tkintertools: https://github.com/Xiaokang2022/tkintertools
 
+<p>
 <a href="https://github.com/Xiaokang2022/tkintertools-demos/watchers"><img alt="Watchers" src="https://img.shields.io/github/watchers/Xiaokang2022/tkintertools-demos?label=Watchers&logo=github&style=flat" title="Watchers" /></a>
 <a href="https://github.com/Xiaokang2022/tkintertools-demos/forks"><img alt="Forks" src="https://img.shields.io/github/forks/Xiaokang2022/tkintertools-demos?label=Forks&logo=github&style=flat" title="Forks" /></a>
 <a href="https://github.com/Xiaokang2022/tkintertools-demos/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/Xiaokang2022/tkintertools-demos?label=Stars&color=gold&logo=github&style=flat" title="Stars" /></a>
@@ -93,46 +94,52 @@ All official demos for tkintertools package
 * ✏️ Author / 作者: [Xiaokang2022](https://github.com/Xiaokang2022)
 * 🚀 GitHub / 仓库: https://github.com/Xiaokang2022/Intelligent-Magic-Cube
 
+<p>
 <img alt="Watchers" src="https://img.shields.io/github/watchers/Xiaokang2022/Intelligent-Magic-Cube?label=Watchers&logo=github&style=flat" title="Watchers" />
 <img alt="Forks" src="https://img.shields.io/github/forks/Xiaokang2022/Intelligent-Magic-Cube?label=Forks&logo=github&style=flat" title="Forks" />
 <img alt="Stars" src="https://img.shields.io/github/stars/Xiaokang2022/Intelligent-Magic-Cube?label=Stars&color=gold&logo=github&style=flat" title="Stars" />
 <img alt="Issues" src="https://img.shields.io/github/issues/Xiaokang2022/Intelligent-Magic-Cube?label=Issues&logo=github&style=flat" title="Issues" />
 <img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/Xiaokang2022/Intelligent-Magic-Cube?label=Pull%20Requests&logo=github&style=flat" title="Pull Requests" />
 <img alt="Discussions" src="https://img.shields.io/github/discussions/Xiaokang2022/Intelligent-Magic-Cube?label=Discussions&logo=github&style=flat" title="Discussions" />
+</p>
 
 ![](https://github.com/Xiaokang2022/Intelligent-Magic-Cube/blob/main/preview.png?raw=true)
 
-### 2️⃣ Super Gobang
-
-* 🔖 Version / 版本: `2.0`
-* 📦 Framework / 框架: `tkintertools 2.6.21.1`
-* ✏️ Author / 作者: [Xiaokang2022](https://github.com/Xiaokang2022)
-* 🚀 GitHub / 仓库: https://github.com/Xiaokang2022/Super-Gobang
-
-<img alt="Watchers" src="https://img.shields.io/github/watchers/Xiaokang2022/Super-Gobang?label=Watchers&logo=github&style=flat" title="Watchers" />
-<img alt="Forks" src="https://img.shields.io/github/forks/Xiaokang2022/Super-Gobang?label=Forks&logo=github&style=flat" title="Forks" />
-<img alt="Stars" src="https://img.shields.io/github/stars/Xiaokang2022/Super-Gobang?label=Stars&color=gold&logo=github&style=flat" title="Stars" />
-<img alt="Issues" src="https://img.shields.io/github/issues/Xiaokang2022/Super-Gobang?label=Issues&logo=github&style=flat" title="Issues" />
-<img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/Xiaokang2022/Super-Gobang?label=Pull%20Requests&logo=github&style=flat" title="Pull Requests" />
-<img alt="Discussions" src="https://img.shields.io/github/discussions/Xiaokang2022/Super-Gobang?label=Discussions&logo=github&style=flat" title="Discussions" />
-
-![](https://github.com/Xiaokang2022/Super-Gobang/blob/main/preview.png?raw=true)
-
-### 3️⃣ Chinese Chess
+### 2️⃣ Chinese Chess
 
 * 🔖 Version / 版本: `1.8`
 * 📦 Framework / 框架: `tkintertools 2.5.9.5`
 * ✏️ Author / 作者: [Xiaokang2022](https://github.com/Xiaokang2022)
 * 🚀 GitHub / 仓库: https://github.com/Xiaokang2022/Chess
 
+<p>
 <img alt="Watchers" src="https://img.shields.io/github/watchers/Xiaokang2022/Chess?label=Watchers&logo=github&style=flat" title="Watchers" />
 <img alt="Forks" src="https://img.shields.io/github/forks/Xiaokang2022/Chess?label=Forks&logo=github&style=flat" title="Forks" />
 <img alt="Stars" src="https://img.shields.io/github/stars/Xiaokang2022/Chess?label=Stars&color=gold&logo=github&style=flat" title="Stars" />
 <img alt="Issues" src="https://img.shields.io/github/issues/Xiaokang2022/Chess?label=Issues&logo=github&style=flat" title="Issues" />
 <img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/Xiaokang2022/Chess?label=Pull%20Requests&logo=github&style=flat" title="Pull Requests" />
 <img alt="Discussions" src="https://img.shields.io/github/discussions/Xiaokang2022/Chess?label=Discussions&logo=github&style=flat" title="Discussions" />
+</p>
 
 ![](https://github.com/Xiaokang2022/Chess/blob/master/preview.png?raw=true)
+
+### 3️⃣ Super Gobang
+
+* 🔖 Version / 版本: `2.0`
+* 📦 Framework / 框架: `tkintertools 2.6.21.1`
+* ✏️ Author / 作者: [Xiaokang2022](https://github.com/Xiaokang2022)
+* 🚀 GitHub / 仓库: https://github.com/Xiaokang2022/Super-Gobang
+
+<p>
+<img alt="Watchers" src="https://img.shields.io/github/watchers/Xiaokang2022/Super-Gobang?label=Watchers&logo=github&style=flat" title="Watchers" />
+<img alt="Forks" src="https://img.shields.io/github/forks/Xiaokang2022/Super-Gobang?label=Forks&logo=github&style=flat" title="Forks" />
+<img alt="Stars" src="https://img.shields.io/github/stars/Xiaokang2022/Super-Gobang?label=Stars&color=gold&logo=github&style=flat" title="Stars" />
+<img alt="Issues" src="https://img.shields.io/github/issues/Xiaokang2022/Super-Gobang?label=Issues&logo=github&style=flat" title="Issues" />
+<img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/Xiaokang2022/Super-Gobang?label=Pull%20Requests&logo=github&style=flat" title="Pull Requests" />
+<img alt="Discussions" src="https://img.shields.io/github/discussions/Xiaokang2022/Super-Gobang?label=Discussions&logo=github&style=flat" title="Discussions" />
+</p>
+
+![](https://github.com/Xiaokang2022/Super-Gobang/blob/main/preview.png?raw=true)
 
 ### 4️⃣ Todo List
 
@@ -141,11 +148,13 @@ All official demos for tkintertools package
 * ✏️ Author / 作者: [Xiaokang2022](https://github.com/Xiaokang2022)
 * 🚀 GitHub / 仓库: https://github.com/Xiaokang2022/TodoList
 
+<p>
 <img alt="Watchers" src="https://img.shields.io/github/watchers/Xiaokang2022/TodoList?label=Watchers&logo=github&style=flat" title="Watchers" />
 <img alt="Forks" src="https://img.shields.io/github/forks/Xiaokang2022/TodoList?label=Forks&logo=github&style=flat" title="Forks" />
 <img alt="Stars" src="https://img.shields.io/github/stars/Xiaokang2022/TodoList?label=Stars&color=gold&logo=github&style=flat" title="Stars" />
 <img alt="Issues" src="https://img.shields.io/github/issues/Xiaokang2022/TodoList?label=Issues&logo=github&style=flat" title="Issues" />
 <img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/Xiaokang2022/TodoList?label=Pull%20Requests&logo=github&style=flat" title="Pull Requests" />
 <img alt="Discussions" src="https://img.shields.io/github/discussions/Xiaokang2022/TodoList?label=Discussions&logo=github&style=flat" title="Discussions" />
+</p>
 
 ![](https://github.com/Xiaokang2022/TodoList/blob/master/preview.png?raw=true)
