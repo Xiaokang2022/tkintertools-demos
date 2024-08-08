@@ -75,11 +75,19 @@ All official demos for tkintertools package
 
 ![](./preview/demo8-1.png)
 
-### 9️⃣ [New Widgets Test](./demos/demo9/)
+### 9️⃣ [New Features Test](./demos/demo9/)
+
+> [!NOTE]  
+> The demo requires the installation of the full `tkintertools` optional dependency package and all extension packages, and the latest commit of `tkintertools` (not `3.0.0.rc1`)  
+> 该 demo 需要安装完整的 `tkintertools` 可选依赖包及全部扩展包，并保证 `tkintertools` 为最新的提交（并非 `3.0.0.rc1`）
 
 ![](./preview/demo9-1.png)
 
 ![](./preview/demo9-2.png)
+
+![](./preview/demo9-3.png)
+
+![](./preview/demo9-4.png)
 
 ## 📑 Projects - `tkt 2`
 
