@@ -7,7 +7,6 @@ import webbrowser
 
 import matplotlib.figure as figure
 import numpy
-
 import tkintertools as tkt
 import tkintertools.animation as animation
 import tkintertools.color as color
@@ -136,6 +135,8 @@ class BasicestCanvas(tkt.Canvas):
 
         widgets.OptionButton(self, (640, 360))
         widgets.ComboBox(self, (640, 440))
+        self.update_idletasks()
+        self._re_place()
 
 
 class WindowTestCanvas(tkt.Canvas):
@@ -191,6 +192,8 @@ class WindowTestCanvas(tkt.Canvas):
         tkt.Text(self, (700, 420), text="DisabledMinButton", anchor="nw")
         tkt.Switch(self, (700, 460), command=lambda b: style.customize_window(
             root, disable_minimize_button=b))
+        self.update_idletasks()
+        self._re_place()
 
     def restart(self, win: typing.Literal["Windows10", "Windows11"]) -> None:
         global root
@@ -226,6 +229,8 @@ class TextTestCanvas(tkt.Canvas):
 
         tkt.Text(self, (300, 200), text="SpinBox", anchor="nw")
         tkt.SpinBox(self, (300, 240))
+        self.update_idletasks()
+        self._re_place()
 
 
 class ImageTestCanvas(tkt.Canvas):
@@ -253,6 +258,8 @@ class ImageTestCanvas(tkt.Canvas):
 
         sx.set(0.5)
         sy.set(0.5)
+        self.update_idletasks()
+        self._re_place()
 
     def zoom_image(self, x: float, y: float):
         x = (3*x + 1)/2
@@ -292,6 +299,8 @@ class MplTestCanvas(tkt.Canvas):
         figure_canvas = mpl.FigureCanvas(fig, self)
         mpl.FigureToolbar(figure_canvas, self)
         figure_canvas.pack(side="top", fill="both", expand=True)
+        self.update_idletasks()
+        self._re_place()
 
 
 class ThreeDTestCanvas(three.Space):
@@ -337,6 +346,8 @@ class ThreeDTestCanvas(three.Space):
         tkt.Text(self, (20, 20), text="Animation (off / on)", anchor="nw")
         tkt.Switch(self, (20, 60), command=lambda flag: an.start()
                    if flag else an.stop())
+        self.update_idletasks()
+        self._re_place()
 
     def _callback(self, _: float) -> None:
         """callback function of animation"""
@@ -379,6 +390,8 @@ class AnimationTestCanvas(tkt.Canvas):
 
         self.item = self.create_oval(
             100, 300, 150, 350, fill="orange", outline="grey")
+        self.update_idletasks()
+        self._re_place()
 
     def move_item(self, back: bool) -> None:
         func = [animation.flat, animation.smooth,
@@ -418,6 +431,8 @@ class DialogTestCanvas(tkt.Canvas):
 
         tkt.Button(self, (20, 460), text="Generate Message Box!",
                    command=lambda: dialogs.TkMessage("Message", "Detail", icon=icons[s1.get()], type=types[s2.get()]))
+        self.update_idletasks()
+        self._re_place()
 
 
 class ColorTestCanvas(three.Canvas):
@@ -459,6 +474,8 @@ class ColorTestCanvas(three.Canvas):
         _l._shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
                                 "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
         _l.update()
+        self.update_idletasks()
+        self._re_place()
 
 
 root = App(title=f"{tkt.__name__} {tkt.__version__} - {constants.SYSTEM}")
