@@ -82,8 +82,8 @@ All official demos for tkintertools package
 > 该 demo 需要安装完整的 `tkintertools` 可选依赖包及全部扩展包，并保证 `tkintertools` 为最新的提交（并非 `3.0.0.rc1`）
 > 
 > ```
-> git clone -b master https://github.com/Xiaokang2022/tkintertools.git
-> python -m pip install --upgrade .\tkintertools\
+> git clone https://github.com/Xiaokang2022/tkintertools.git
+> python -m pip install --upgrade ./tkintertools/
 > ```
 
 ![](./preview/demo9-1.png)
