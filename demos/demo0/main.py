@@ -63,7 +63,8 @@ class MyToplevel(tkt.Toplevel):
 
     def __init__(self, *args, **kw) -> None:
         constants.SYSTEM = ORIGIN_SYSTEM
-        super().__init__(*args, size=(720, 405), transient=True, **kw)
+        super().__init__(*args, size=(720, 405), **kw)
+        self.transient(self.master)
         self.center(self.master)
         self.canvas = canvas = tkt.Canvas(self, free_anchor=True, expand="")
         canvas.place(width=720, height=405, x=360, y=202, anchor="center")

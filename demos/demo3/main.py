@@ -80,9 +80,9 @@ class LoginToplevel(tkt.Toplevel):
 root = tkt.Tk(title="Main Window")
 root.center()
 
-login = LoginToplevel(
-    root, (480, 640), title="登录", transient=True, grab=True)
+login = LoginToplevel(root, (480, 640), title="登录", grab=True)
 login.resizable(False, False)
+login.transient(root)
 login.center()
 login.load_ui()
 

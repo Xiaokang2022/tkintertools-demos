@@ -83,7 +83,7 @@ All official demos for tkintertools package
 > 
 > ```
 > git clone https://github.com/Xiaokang2022/tkintertools.git
-> python -m pip install -e tkintertools
+> python -m pip install ./tkintertools/
 > ```
 
 ![](./preview/demo9-1.png)
