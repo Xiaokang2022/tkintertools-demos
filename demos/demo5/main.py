@@ -8,9 +8,11 @@ import numpy
 import PIL.Image as Image
 import PIL.ImageTk as ImageTk
 import tkintertools as tkt
+import tkintertools.core.constants as constants
 import tkintertools.mpl as mpl
 import tkintertools.standard.dialogs as dialogs
 import tkintertools.style as style
+import tkintertools.toolbox as toolbox
 
 
 def get_offset(image1: Image.Image, image2: Image.Image, side: int) -> list[list[tuple[int, int]]]:
@@ -162,7 +164,7 @@ def open_images() -> None:
     """打开图片文件"""
     global FILE1, FILE2
     try:
-        if filenames := filedialog.askopenfilenames():
+        if filenames := filedialog.askopenfilenames(initialdir=__file__):
             FILE1, FILE2, *_ = filenames
     except Exception as e:
         dialogs.TkMessage(e.__class__.__name__, e, title="遇到错误", icon="error")
@@ -204,14 +206,14 @@ def caculate() -> None:
 
 def show() -> None:
     """显示图片"""
-    global toolbar, figure_canvas
+    global toolbar, figure_canvas, image
     clear()
 
     try:
         figure_canvas = tkt.Canvas(base_canvas, zoom_item=True)
         x, y = root._size
-        figure_canvas.create_image(
-            x//2, y//2-60, image=ImageTk.PhotoImage(Image.open(FILE1).crop(AREA)))
+        image = ImageTk.PhotoImage(Image.open(FILE1).crop(AREA))
+        figure_canvas.create_image(x//2, y//2-60, image=image)
         figure_canvas.create_text(
             x//2+1, 30+1, anchor="n", text=FILE1, fill="black")
         figure_canvas.create_text(
@@ -222,8 +224,11 @@ def show() -> None:
 
 
 # constants.SYSTEM = "Windows11"
-# constants.FONT = "霞鹜文楷"
-mpl.set_mpl_default_theme(style.get_color_mode() == "dark")
+
+if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
+    constants.FONT = "霞鹜文楷"
+
+mpl.set_mpl_default_theme(style.get_color_mode())
 
 
 MODE: bool = False  # 计算模式

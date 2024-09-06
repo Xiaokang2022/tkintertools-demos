@@ -4,41 +4,41 @@ import tkintertools as tkt
 import tkintertools.mpl as mpl
 import tkintertools.style as style
 
-mpl.set_mpl_default_theme(style.get_color_mode() == "dark")
+mpl.set_mpl_default_theme(style.get_color_mode())
 
 """
 1st Window
 """
 
-fig = figure.Figure()
-ax = fig.add_subplot(projection='3d')
+# fig = figure.Figure()
+# ax = fig.add_subplot(projection='3d')
 
-colors = ['r', 'g', 'b', 'y']
-yticks = [3, 2, 1, 0]
+# colors = ['r', 'g', 'b', 'y']
+# yticks = [3, 2, 1, 0]
 
-for c, k in zip(colors, yticks):
-    xs = numpy.arange(20)
-    ys = numpy.random.rand(20)
-    cs = [c] * len(xs)
-    cs[0] = 'c'
-    ax.bar(xs, ys, zs=k, zdir='y', color=cs, alpha=0.8)
+# for c, k in zip(colors, yticks):
+#     xs = numpy.arange(20)
+#     ys = numpy.random.rand(20)
+#     cs = [c] * len(xs)
+#     cs[0] = 'c'
+#     ax.bar(xs, ys, zs=k, zdir='y', color=cs, alpha=0.8)
 
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-ax.set_title("3D")
+# ax.set_xlabel('X')
+# ax.set_ylabel('Y')
+# ax.set_zlabel('Z')
+# ax.set_title("3D")
 
-ax.set_yticks(yticks)
+# ax.set_yticks(yticks)
 
-root = tkt.Tk((960, 720), title="Matplotlib Test - 3D Plot")
-root.center()
-canvas = tkt.Canvas(root, zoom_item=True)
-canvas.place(width=960, height=720)
-figure_canvas = mpl.FigureCanvas(fig, canvas)
-toolbar = mpl.FigureToolbar(figure_canvas, canvas)
-figure_canvas.pack(side="top", fill="both", expand=True)
+# root = tkt.Tk((960, 720), title="Matplotlib Test - 3D Plot")
+# root.center()
+# canvas = tkt.Canvas(root, zoom_item=True)
+# canvas.place(width=960, height=720)
+# figure_canvas = mpl.FigureCanvas(fig, canvas)
+# toolbar = mpl.FigureToolbar(figure_canvas, canvas)
+# figure_canvas.pack(side="top", fill="both", expand=True)
 
-root.mainloop()
+# root.mainloop()
 
 """
 2nd Winodow
