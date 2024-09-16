@@ -3,6 +3,7 @@ import random
 import tkintertools as tkt
 import tkintertools.animation as animation
 import tkintertools.core.constants as constants
+import tkintertools.core.virtual as virtual
 import tkintertools.standard.shapes as shapes
 import tkintertools.style as style
 import tkintertools.toolbox as toolbox
@@ -43,7 +44,7 @@ def get_random_int(min: int, max: int, interval: int) -> int:
     return random.choice((a, b))
 
 
-class DummyFrame(tkt.Widget):
+class DummyFrame(virtual.Widget):
 
     def __init__(
         self,
@@ -68,11 +69,11 @@ root = tkt.Tk(title="Simple Project - Login Window")
 canvas = tkt.Canvas(root, zoom_item=True, free_anchor=True, keep_ratio="max")
 canvas.place(width=1280, height=720, x=640, y=360, anchor="center")
 
-img = tkt.Image(canvas, (640, 360), image=tkt.PhotoImage(
+img = tkt.Image(canvas, (0, 0), image=tkt.PhotoImage(
     file=f"./assets/images/{style.get_color_mode()}.png"))
 
 style.register_event(lambda theme: img.set(tkt.PhotoImage(
-    file=f"./assets/images/{("light", "dark")[theme]}.png")))
+    file="./assets/images/%s.png" % ("light", "dark")[theme])))
 
 
 login_widgets = [
@@ -80,7 +81,7 @@ login_widgets = [
     tkt.Switch(canvas, (330+440, 20+70), default=style.get_color_mode() == "dark",
                command=lambda flag: style.set_color_mode("dark" if flag else "light")),
     tkt.Text(canvas, (200+450, 80+70), text="Login",
-             fontsize=48, weight="bold"),
+             fontsize=48, weight="bold", anchor="center"),
     tkt.Text(canvas, (30+450, 170+70), anchor="w",
              text="Account", fontsize=24),
     tkt.InputBox(canvas, (25+450, 190+70), (350, 50),
@@ -92,7 +93,7 @@ login_widgets = [
     tkt.Button(canvas, (25+450, 380+70), (350, 55),
                text="Login", name="", command=lambda: alert("Login Success!")),
     tkt.Text(canvas, (135+450, 470+70),
-             text="Do not have an account?", fontsize=18),
+             text="Do not have an account?", fontsize=18, anchor="center"),
     tkt.UnderlineButton(canvas, (340+450, 470+70),
                         text="Sign up", fontsize=18, command=move_right)
 ]
@@ -103,7 +104,7 @@ login_widgets[-3].update()
 signup_widgets = [
     DummyFrame(canvas, (450-900, 70), (400, 560), name="Label"),
     tkt.Text(canvas, (200+450-900, 80+70),
-             text="Sign up", fontsize=48, weight="bold"),
+             text="Sign up", fontsize=48, weight="bold", anchor="center"),
     tkt.Text(canvas, (30+450-900, 170+70),
              anchor="w", text="Account", fontsize=24),
     tkt.InputBox(canvas, (25+450-900, 190+70), (350, 50),
@@ -115,7 +116,7 @@ signup_widgets = [
     tkt.Button(canvas, (25+450-900, 380+70), (350, 55),
                text="Sign Up", name="", command=lambda: alert("Sign Up Success!")),
     tkt.Text(canvas, (135+450-900, 470+70),
-             text="Already have an account?", fontsize=18),
+             text="Already have an account?", fontsize=18, anchor="center"),
     tkt.UnderlineButton(canvas, (350+450-900, 470+70),
                         text="Login", fontsize=18, command=move_left)
 ]

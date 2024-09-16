@@ -23,6 +23,10 @@ All official demos for tkintertools package
     </a>
 </p>
 
+> [!WARNING]
+> Solemnly declared! All resource files used in this repository are only for testing purposes, and cannot be used for commercial use without authorization!  
+> 郑重声明！本仓库所用到一切资源文件皆仅作测试用，不可擅自商用！
+
 ## 📑 Demos - `tkt 3`
 
 > [!NOTE]  
@@ -77,15 +81,6 @@ All official demos for tkintertools package
 
 ### 9️⃣ [New Features Test](./demos/demo9/)
 
-> [!NOTE]  
-> The demo requires the installation of the full `tkintertools` optional dependency package and all extension packages, and the latest commit of `tkintertools` (not `3.0.0.rc1`)  
-> 该 demo 需要安装完整的 `tkintertools` 可选依赖包及全部扩展包，并保证 `tkintertools` 为最新的提交（并非 `3.0.0.rc1`）
-> 
-> ```
-> git clone https://github.com/Xiaokang2022/tkintertools.git
-> python -m pip install ./tkintertools/
-> ```
-
 ![](./preview/demo9-1.png)
 
 ![](./preview/demo9-2.png)
@@ -93,6 +88,10 @@ All official demos for tkintertools package
 ![](./preview/demo9-3.png)
 
 ![](./preview/demo9-4.png)
+
+### 🔟 [Media Test](./demos/demo10/)
+
+![](./preview/demo10-1.png)
 
 ## 📑 Projects - `tkt 2`
 

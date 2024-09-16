@@ -28,7 +28,7 @@ class Circle(shapes.Oval):
         return math.hypot(x-self.position[0]-self.size[0]/2, y-self.position[1]-self.size[1]/2) <= self.size[0]/2
 
 
-class Piece(tkt.Widget):
+class Piece(virtual.Widget):
     """继承小部件基类，具化为棋子类"""
 
     def __init__(
@@ -38,7 +38,7 @@ class Piece(tkt.Widget):
         color: typing.Literal["white", "black"],
         text: str,
     ) -> None:
-        tkt.Widget.__init__(
+        virtual.Widget.__init__(
             self, master, index_to_position(*position), (60, 60))
         Circle(self, name=f".{color}")
         texts.Information(self, text=text, fontsize=32)

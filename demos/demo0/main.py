@@ -6,6 +6,7 @@ import tkintertools as tkt
 import tkintertools.animation as animation
 import tkintertools.color as color
 import tkintertools.core.constants as constants
+import tkintertools.core.virtual as virtual
 import tkintertools.standard.dialogs as dialogs
 import tkintertools.standard.features as features
 import tkintertools.standard.shapes as shapes
@@ -25,11 +26,11 @@ constants.SIZE = -24
 
 ORIGIN_SYSTEM = constants.SYSTEM
 
-img = tkt.Image(canvas, (640, 360), image=tkt.PhotoImage(
+img = tkt.Image(canvas, (0, 0), image=tkt.PhotoImage(
     file=f"./assets/images/{style.get_color_mode()}.png"))
 
 style.register_event(lambda theme: img.set(tkt.PhotoImage(
-    file=f"./assets/images/{("light", "dark")[theme]}.png")))
+    file="./assets/images/%s.png" % ("light", "dark")[theme])))
 
 """
 Data Card (RGBA - Experimental)
@@ -40,7 +41,7 @@ _l._shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
                         "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
 _l.update()
 
-tkt.Text(canvas, (740, 430), text="— RGBA Card —")
+tkt.Text(canvas, (740, 430), text="— RGBA Card —", anchor="center")
 tkt.UnderlineButton(canvas, (740, 490), text="Home Page", through=True,
                     command=lambda: webbrowser.open_new_tab("https://xiaokang2022.github.io/tkintertools/"))
 tkt.UnderlineButton(canvas, (740, 530), text="GitHub (Source)", through=True,
@@ -106,7 +107,7 @@ class MyToplevel(tkt.Toplevel):
         self.feature = random.choice(
             [features.LabelFeature, features.ButtonFeature, features.Underline, features.Highlight])
         self.text = texts.Information
-        self.widget = tkt.Widget(self.canvas, (300, 162), (120, 80))
+        self.widget = virtual.Widget(self.canvas, (300, 162), (120, 80))
         kw = {}
         match self.shape:
             case shapes.RegularPolygon: kw["side"] = random.randint(3, 9)
@@ -160,7 +161,7 @@ tkt.CheckButton(canvas, (125, 35), command=root.fullscreen)
 
 
 i = tkt.Text(canvas, (440, 50),
-             text="tkintertools 3: a Brand New UI Framework", fontsize=26, name="")
+             text="tkintertools 3: a Brand New UI Framework", fontsize=26, name="", anchor="center")
 
 tkt.HighlightButton(canvas, (790, 50), text="Get More!", command=MyToplevel)
 
@@ -250,20 +251,22 @@ animation.Animation(2000, animation.smooth, callback=pb4.set,
                     fps=60, repeat=math.inf).start()
 
 tkt.CheckButton(canvas, (50, 390))
-tkt.Text(canvas, (165, 390 + 15), text="CheckButton")
+tkt.Text(canvas, (165, 390 + 15), text="CheckButton", anchor="center")
 tkt.RadioButton(canvas, (250, 390 + 3))
-tkt.Text(canvas, (355, 390 + 15), text="RadioButton")
-tkt.Text(canvas, (460, 390 + 15), text="Off")
+tkt.Text(canvas, (355, 390 + 15), text="RadioButton", anchor="center")
+tkt.Text(canvas, (460, 390 + 15), text="Off", anchor="center")
 tkt.Switch(canvas, (490, 390))
-tkt.Text(canvas, (580, 390 + 15), text="On")
+tkt.Text(canvas, (580, 390 + 15), text="On", anchor="center")
 
 tkt.CheckButton(canvas, (50, 440), default=True).disabled()
-tkt.Text(canvas, (165, 440 + 15), text="CheckButton").disabled()
+tkt.Text(canvas, (165, 440 + 15), text="CheckButton",
+         anchor="center").disabled()
 tkt.RadioButton(canvas, (250, 440 + 3), default=True).disabled()
-tkt.Text(canvas, (355, 440 + 15), text="RadioButton").disabled()
-tkt.Text(canvas, (460, 440 + 15), text="Off").disabled()
+tkt.Text(canvas, (355, 440 + 15), text="RadioButton",
+         anchor="center").disabled()
+tkt.Text(canvas, (460, 440 + 15), text="Off", anchor="center").disabled()
 tkt.Switch(canvas, (490, 440), default=True).disabled()
-tkt.Text(canvas, (580, 440 + 15), text="On").disabled()
+tkt.Text(canvas, (580, 440 + 15), text="On", anchor="center").disabled()
 
 tkt.InputBox(canvas, (50, 595 - 5), (270, 50), placeholder="Placeholder")
 e = tkt.InputBox(canvas, (50, 655 - 5), (270, 50))
@@ -313,20 +316,22 @@ animation.Animation(2000, animation.flat, callback=pb8.set,
                     fps=60, repeat=math.inf).start(delay=1500)
 
 tkt.CheckButton(canvas, (50, 490))
-tkt.Text(canvas, (165, 490 + 15), text="CheckButton")
+tkt.Text(canvas, (165, 490 + 15), text="CheckButton", anchor="center")
 tkt.RadioButton(canvas, (250, 490 + 3))
-tkt.Text(canvas, (355, 490 + 15), text="RadioButton")
-tkt.Text(canvas, (460, 490 + 15), text="Off")
+tkt.Text(canvas, (355, 490 + 15), text="RadioButton", anchor="center")
+tkt.Text(canvas, (460, 490 + 15), text="Off", anchor="center")
 tkt.Switch(canvas, (490, 490))
-tkt.Text(canvas, (580, 490 + 15), text="On")
+tkt.Text(canvas, (580, 490 + 15), text="On", anchor="center")
 
 tkt.CheckButton(canvas, (50, 540)).disabled()
-tkt.Text(canvas, (165, 540 + 15), text="CheckButton").disabled()
+tkt.Text(canvas, (165, 540 + 15), text="CheckButton",
+         anchor="center").disabled()
 tkt.RadioButton(canvas, (250, 540 + 3)).disabled()
-tkt.Text(canvas, (355, 540 + 15), text="RadioButton").disabled()
-tkt.Text(canvas, (460, 540 + 15), text="Off").disabled()
+tkt.Text(canvas, (355, 540 + 15), text="RadioButton",
+         anchor="center").disabled()
+tkt.Text(canvas, (460, 540 + 15), text="Off", anchor="center").disabled()
 tkt.Switch(canvas, (490, 540)).disabled()
-tkt.Text(canvas, (580, 540 + 15), text="On").disabled()
+tkt.Text(canvas, (580, 540 + 15), text="On", anchor="center").disabled()
 
 tkt.InputBox(canvas, (50 + 280, 595 - 5), (270, 50))
 tkt.InputBox(canvas, (50 + 280, 655 - 5), (270, 50)).disabled()

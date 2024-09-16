@@ -59,36 +59,30 @@ class App(tkt.Tk):
         texts = ("Basic Test", "Window Test", "Text Test", "Image Test",
                  "Matplotlib Test", "3D Test", "Animation Test", "Dialog Test",
                  "Color Test", "About TKT")
-        commands = (
-            lambda: BasicestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: WindowTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: TextTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: ImageTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: MplTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: ThreeDTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: AnimationTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: DialogTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: ColorTestCanvas(
-                self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas"),
-            lambda: tuple(canvas.destroy()
-                          for canvas in self.frame_main.canvases),
-        )
 
         tkt.SegmentedButton(canvas, (20, 140), sizes,
-                            texts=texts, commands=commands, layout="vertical")
+                            texts=texts, command=self.call_canvas, layout="vertical")
 
         animation.GradientItem(
             canvas, title._texts[0].items[0], "fill", 2000, ("red", "orange"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
         animation.GradientItem(
             canvas, sub_title._texts[0].items[0], "fill", 2000, ("green", "cyan"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
+
+    def call_canvas(self, index: int) -> None:
+        """"""
+        match index:
+            case 0: BasicestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 1: WindowTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 2: TextTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 3: ImageTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 4: MplTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 5: ThreeDTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 6: AnimationTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 7: DialogTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 8: ColorTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 9:
+                for canvas in self.frame_main.canvases:
+                    canvas.destroy()
 
 
 class BasicestCanvas(tkt.Canvas):
@@ -162,26 +156,22 @@ class WindowTestCanvas(tkt.Canvas):
             root, hide_title_bar=b))
 
         modes = 'Rectangular', 'SmallRound', 'Round'
-        commands = [lambda m=m: style.customize_window(
-            root, boarder_type=m.lower()) for m in modes]
         tkt.Text(self, (20, 140), text="BoaderType")
-        tkt.SegmentedButton(self, (20, 180), texts=modes,
-                            commands=commands, default=2)
+        tkt.SegmentedButton(self, (20, 180), texts=modes, command=lambda i: style.customize_window(
+            root, boarder_type=modes[i].lower()), default=2)
 
         texts = ["All", "MaxMin", "None"]
-        commands = [lambda t=t: style.customize_window(
-            root, hide_button=t.lower()) for t in texts]
+
         tkt.Text(self, (500, 140), text="HideTitleBarButton")
         tkt.SegmentedButton(self, (500, 180), texts=texts,
-                            commands=commands, default=2)
+                            command=lambda i: style.customize_window(root, hide_button=texts[i].lower()), default=2)
 
         styles = ("normal", "mica", "acrylic", "aero", "transparent",
                   "optimised", "win7", "inverse", "native", "popup")
-        commands = [lambda s=s: style.customize_window(
-            root, style=s) for s in styles]
         tkt.Text(self, (20, 280),
                  text="Theme (Only Works on Windows OS!)")
-        tkt.SegmentedButton(self, (20, 320), texts=styles, commands=commands)
+        tkt.SegmentedButton(self, (20, 320), texts=styles,
+                            command=lambda i: style.customize_window(root, style=styles[i]))
 
         t = tkt.Text(self, (20, 420), text="Alpha (100%)")
         tkt.Slider(self, (20, 460), (350, 30), command=lambda p: (
@@ -202,8 +192,8 @@ class WindowTestCanvas(tkt.Canvas):
         root.update_idletasks()
         root.destroy()
         constants.SYSTEM = win
-        root = App(title=f"{tkt.__name__} {
-                   tkt.__version__} - {constants.SYSTEM}")
+        root = App(
+            title="%s %s - %s" % (tkt.__name__, tkt.__version__, constants.SYSTEM))
         root.center()
         root.mainloop()
 

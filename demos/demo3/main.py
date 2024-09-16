@@ -13,7 +13,7 @@ class LoginToplevel(tkt.Toplevel):
         canvas.place(width=480, height=720)
 
         self.sub_title = tkt.Text(
-            canvas, (240, 45), text="登录到你的账号", fontsize=36)
+            canvas, (240, 45), text="登录到你的账号", fontsize=36, anchor="center")
 
         canvas.create_oval(120, 90, 360, 330, outline="grey")
         canvas.create_text(240, 210, text="用户\n头像", fill="grey", font=30)
@@ -33,13 +33,13 @@ class LoginToplevel(tkt.Toplevel):
                                (190, 50), text="返 回", command=lambda: self.animate(True))
 
         self.forget = tkt.UnderlineButton(
-            canvas, (140, 600), text="忘记密码", fontsize=20)
-        self.sep = tkt.Text(canvas, (190, 600), text="|")
+            canvas, (140, 600), text="忘记密码", fontsize=20, anchor="center")
+        self.sep = tkt.Text(canvas, (190, 600), text="|", anchor="center")
         self.find = tkt.UnderlineButton(
-            canvas, (240, 600), text="找回账号", fontsize=20)
-        self.sep_2 = tkt.Text(canvas, (290, 600), text="|")
+            canvas, (240, 600), text="找回账号", fontsize=20, anchor="center")
+        self.sep_2 = tkt.Text(canvas, (290, 600), text="|", anchor="center")
         self.net = tkt.UnderlineButton(
-            canvas, (340, 600), text="网络设置", fontsize=20)
+            canvas, (340, 600), text="网络设置", fontsize=20, anchor="center")
         self.animation_lock = False  # 防熊
 
     def animate(self, back: bool = False) -> None:

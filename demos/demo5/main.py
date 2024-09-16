@@ -268,10 +268,10 @@ c = tkt.Button(canvas, (500, 50), (120, 50), text="计算", command=lambda: thre
 tkt.Button(canvas, (640, 50), (120, 50), text="显示", command=show)
 tkt.Button(canvas, (780, 50), (120, 50), text="打开", command=open_images)
 
-tkt.Text(canvas, (990, 30), text="明亮模式")
-tkt.Text(canvas, (1170, 30), text="黑暗模式")
-tkt.Text(canvas, (990, 80), text="速度矢量")
-tkt.Text(canvas, (1170, 80), text="相关系数")
+tkt.Text(canvas, (990, 30), text="明亮模式", anchor="center")
+tkt.Text(canvas, (1170, 30), text="黑暗模式", anchor="center")
+tkt.Text(canvas, (990, 80), text="速度矢量", anchor="center")
+tkt.Text(canvas, (1170, 80), text="相关系数", anchor="center")
 
 tkt.Switch(canvas, (1050, 15), 60, default=style.get_color_mode() == "dark",
            command=lambda b: style.set_color_mode("dark" if b else "light"))
