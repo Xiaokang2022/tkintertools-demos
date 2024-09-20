@@ -69,12 +69,12 @@ root.center()
 cv = tkt.Canvas(root, keep_ratio="min", free_anchor=True, zoom_item=True)
 cv.place(width=1920, height=1080, x=960, y=540, anchor="center")
 
-cv_mpl_1 = mpl.FigureCanvas(fig1, cv)
-toolbar_1 = mpl.FigureToolbar(cv_mpl_1, cv_mpl_1)
+cv_mpl_1 = mpl.FigureCanvas(cv, fig1)
+toolbar_1 = mpl.FigureToolbar(cv_mpl_1)
 cv_mpl_1.place(width=960, height=540)
 
-cv_mpl_2 = mpl.FigureCanvas(fig2, cv)
-toolbar_2 = mpl.FigureToolbar(cv_mpl_2, cv_mpl_2)
+cv_mpl_2 = mpl.FigureCanvas(cv, fig2)
+toolbar_2 = mpl.FigureToolbar(cv_mpl_2)
 cv_mpl_2.place(width=960, height=540, x=960, y=540)
 
 # tkintertools-media #

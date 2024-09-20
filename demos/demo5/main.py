@@ -1,3 +1,4 @@
+import pathlib
 import threading
 import time
 import tkinter.filedialog as filedialog
@@ -164,7 +165,8 @@ def open_images() -> None:
     """打开图片文件"""
     global FILE1, FILE2
     try:
-        if filenames := filedialog.askopenfilenames(initialdir=__file__):
+        if filenames := filedialog.askopenfilenames(
+                initialdir=pathlib.Path(__file__).parent/"images/"):
             FILE1, FILE2, *_ = filenames
     except Exception as e:
         dialogs.TkMessage(e.__class__.__name__, e, title="遇到错误", icon="error")
@@ -190,9 +192,9 @@ def caculate() -> None:
                 Image.open(FILE2).crop(AREA),
                 int(SIDE.get())), export=True)
 
-        figure_canvas = mpl.FigureCanvas(fig, base_canvas)
+        figure_canvas = mpl.FigureCanvas(base_canvas, fig)
         toolbar = mpl.FigureToolbar(
-            figure_canvas, root, pack_toolbar=False)
+            root, figure_canvas, pack_toolbar=False)
 
         toolbar.pack(fill="x")
         figure_canvas.pack(expand=True, fill="both")
@@ -246,8 +248,8 @@ base_canvas.place(width=1600, height=900)
 fig = figure.Figure()
 
 canvas = tkt.Canvas(base_canvas, height=120)
-figure_canvas = mpl.FigureCanvas(fig, base_canvas)
-toolbar = mpl.FigureToolbar(figure_canvas, root, pack_toolbar=False)
+figure_canvas = mpl.FigureCanvas(base_canvas, fig)
+toolbar = mpl.FigureToolbar(root, figure_canvas, pack_toolbar=False)
 
 toolbar.pack(fill="x")
 canvas.pack(side="bottom", fill="x")

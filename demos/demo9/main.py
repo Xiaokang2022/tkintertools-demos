@@ -288,8 +288,8 @@ class MplTestCanvas(tkt.Canvas):
 
         ax.set_yticks(yticks)
 
-        figure_canvas = mpl.FigureCanvas(fig, self)
-        mpl.FigureToolbar(figure_canvas, self)
+        figure_canvas = mpl.FigureCanvas(self, fig)
+        mpl.FigureToolbar(self, figure_canvas)
         figure_canvas.pack(side="top", fill="both", expand=True)
         self.update_idletasks()
         self._re_place()
