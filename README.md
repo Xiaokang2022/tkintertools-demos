@@ -93,6 +93,10 @@ All official demos for tkintertools package
 
 ![](./preview/demo10-1.png)
 
+### ⚡[Extension Test - All in One](./demos/demo11/)
+
+![](./preview/demo11-1.png)
+
 ## 📑 Projects - `tkt 2`
 
 > [!IMPORTANT]  
