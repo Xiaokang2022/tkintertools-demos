@@ -20,7 +20,7 @@ canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min", free_anchor=True)
 canvas.place(width=1280, height=720, x=640, y=360, anchor="center")
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "霞鹜文楷"
+    constants.FONT = "LXGW WenKai"
 
 constants.SIZE = -24
 

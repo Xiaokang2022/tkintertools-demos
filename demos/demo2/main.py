@@ -14,7 +14,7 @@ import tkintertools.style as style
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):  # 加载指定字体文件
-    constants.FONT = "霞鹜文楷"  # 指定全局字体
+    constants.FONT = "LXGW WenKai"  # 指定全局字体
 
 # style.set_theme_map(light="./demos/demo2/mytheme", dark="./demos/demo2/mytheme",
 #                 folder="./demos/demo2")  # 设置自定义的颜色主题

@@ -9,7 +9,7 @@ import tkintertools.style as style
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "霞鹜文楷"
+    constants.FONT = "LXGW WenKai"
 
 
 def alert(text: str) -> None:

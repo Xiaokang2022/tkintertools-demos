@@ -228,9 +228,9 @@ def show() -> None:
 # constants.SYSTEM = "Windows11"
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "霞鹜文楷"
+    constants.FONT = "LXGW WenKai"
 
-mpl.set_mpl_default_theme(style.get_color_mode())
+mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
 
 
 MODE: bool = False  # 计算模式

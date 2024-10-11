@@ -4,7 +4,7 @@ import tkintertools.media as media
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "霞鹜文楷"
+    constants.FONT = "LXGW WenKai"
 
 root = tkt.Tk(title=f"tkintertools-media v{media.__version__}")
 cv = media.VideoCanvas(root, keep_ratio="min", free_anchor=True, controls=True)

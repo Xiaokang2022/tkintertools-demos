@@ -11,10 +11,17 @@ import tkintertools.media as media
 import tkintertools.mpl as mpl
 import tkintertools.style as style
 import tkintertools.three as three
+import tkintertools.toolbox as toolbox
 
 # Optional operations #
+
 # constants.SYSTEM = "Windows10"
-# mpl.set_mpl_default_theme(style.get_color_mode())
+
+# if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
+#     constants.FONT = "LXGW WenKai"
+
+# mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
+
 # Optional operations #
 
 

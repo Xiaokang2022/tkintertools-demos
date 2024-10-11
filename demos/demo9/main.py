@@ -21,7 +21,9 @@ import tkintertools.three as three
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "霞鹜文楷"
+    constants.FONT = "LXGW WenKai"
+
+mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
 
 
 class App(tkt.Tk):
