@@ -43,7 +43,7 @@ class App(tkt.Tk):
                  fontsize=32, justify="center", anchor="center")
 
         github = "https://github.com/Xiaokang2022/tkintertools"
-        tkt.UnderlineButton(frame_main, (480, 560), text=github,
+        tkt.UnderlineButton(frame_main, (480, 560), text=github, anchor="center",
                             command=lambda: webbrowser.open_new_tab(github))
 
         self.load_canvas_side(frame_side)
@@ -58,12 +58,12 @@ class App(tkt.Tk):
             canvas, (160, 90), text="3.0.0.rc1 (Pre-release)", anchor="center")
 
         sizes = ((270, 50),)*10
-        texts = ("Basic Test", "Window Test", "Text Test", "Image Test",
+        text = ("Basic Test", "Window Test", "Text Test", "Image Test",
                  "Matplotlib Test", "3D Test", "Animation Test", "Dialog Test",
                  "Color Test", "About TKT")
 
         tkt.SegmentedButton(canvas, (20, 140), sizes,
-                            texts=texts, command=self.call_canvas, layout="vertical")
+                            text=text, command=self.call_canvas, layout="vertical")
 
         animation.GradientItem(
             canvas, title._texts[0].items[0], "fill", 2000, ("red", "orange"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
@@ -122,13 +122,13 @@ class BasicestCanvas(tkt.Canvas):
         tkt.ProgressBar(self, (420, 200)).set(0.5)
         tkt.ProgressBar(self, (420, 260)).disabled()
 
-        tkt.SegmentedButton(self, (20, 360), texts=(
+        tkt.SegmentedButton(self, (20, 360), text=(
             "Option1", "Option2", "Option3"), default=0)
-        tkt.SegmentedButton(self, (20, 440), texts=(
+        tkt.SegmentedButton(self, (20, 440), text=(
             "Option1", "Option2", "Option3"), default=1).disabled()
-        tkt.SegmentedButton(self, (360, 360), layout="vertical", texts=(
+        tkt.SegmentedButton(self, (360, 360), layout="vertical", text=(
             "Option1", "Option2", "Option3"), default=2)
-        tkt.SegmentedButton(self, (500, 360), layout="vertical", texts=(
+        tkt.SegmentedButton(self, (500, 360), layout="vertical", text=(
             "Option1", "Option2", "Option3")).disabled()
 
         widgets.OptionButton(self, (640, 360))
@@ -159,20 +159,20 @@ class WindowTestCanvas(tkt.Canvas):
 
         modes = 'Rectangular', 'SmallRound', 'Round'
         tkt.Text(self, (20, 140), text="BoaderType")
-        tkt.SegmentedButton(self, (20, 180), texts=modes, command=lambda i: style.customize_window(
+        tkt.SegmentedButton(self, (20, 180), text=modes, command=lambda i: style.customize_window(
             root, boarder_type=modes[i].lower()), default=2)
 
-        texts = ["All", "MaxMin", "None"]
+        text = ["All", "MaxMin", "None"]
 
         tkt.Text(self, (500, 140), text="HideTitleBarButton")
-        tkt.SegmentedButton(self, (500, 180), texts=texts,
-                            command=lambda i: style.customize_window(root, hide_button=texts[i].lower()), default=2)
+        tkt.SegmentedButton(self, (500, 180), text=text,
+                            command=lambda i: style.customize_window(root, hide_button=text[i].lower()), default=2)
 
         styles = ("normal", "mica", "acrylic", "aero", "transparent",
                   "optimised", "win7", "inverse", "native", "popup")
         tkt.Text(self, (20, 280),
                  text="Theme (Only Works on Windows OS!)")
-        tkt.SegmentedButton(self, (20, 320), texts=styles,
+        tkt.SegmentedButton(self, (20, 320), text=styles,
                             command=lambda i: style.customize_window(root, style=styles[i]))
 
         t = tkt.Text(self, (20, 420), text="Alpha (100%)")
@@ -368,7 +368,7 @@ class AnimationTestCanvas(tkt.Canvas):
         self.place(width=958, height=540, x=481, y=360, anchor="center")
 
         tkt.Text(self, (20, 20), text="Choose a control function")
-        self.s = tkt.SegmentedButton(self, (20, 60), texts=(
+        self.s = tkt.SegmentedButton(self, (20, 60), text=(
             "Flat", "Smooth", "Rebound"), default=0)
 
         tkt.Text(self, (350, 20), text="Duration (ms)")
@@ -417,14 +417,14 @@ class DialogTestCanvas(tkt.Canvas):
 
         tkt.Text(self, (20, 200), text="Icon")
         icons = 'error', 'info', 'question', 'warning'
-        s1 = tkt.SegmentedButton(self, (20, 240), default=1, texts=icons)
+        s1 = tkt.SegmentedButton(self, (20, 240), default=1, text=icons)
 
         tkt.Text(self, (20, 320), text="Type")
         types = 'abortretryignore', 'ok', 'okcancel', 'retrycancel', 'yesno', 'yesnocancel'
-        s2 = tkt.SegmentedButton(self, (20, 360), default=1, texts=types)
+        s2 = tkt.SegmentedButton(self, (20, 360), default=1, text=types)
 
         tkt.Button(self, (20, 460), text="Generate Message Box!",
-                   command=lambda: dialogs.TkMessage("Message", "Detail", icon=icons[s1.get()], type=types[s2.get()]))
+                   command=lambda: dialogs.TkMessage("Message", "Detail", icon=icons[s1.get()], option=types[s2.get()]))
         self.update_idletasks()
         self._re_place()
 

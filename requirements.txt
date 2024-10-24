@@ -1,3 +1,3 @@
-tkintertools==3.0.0rc2
-tkintertools[all]==3.0.0rc2
-tkintertools[extension]==3.0.0rc2
+tkintertools==3.0.0rc3
+tkintertools[all]==3.0.0rc3
+tkintertools[extension]==3.0.0rc3

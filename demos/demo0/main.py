@@ -42,15 +42,15 @@ _l._shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
 _l.update()
 
 tkt.Text(canvas, (740, 430), text="— RGBA Card —", anchor="center")
-tkt.UnderlineButton(canvas, (740, 490), text="Home Page", through=True,
+tkt.UnderlineButton(canvas, (740, 490), text="Home Page", through=True, anchor="center",
                     command=lambda: webbrowser.open_new_tab("https://xiaokang2022.github.io/tkintertools/"))
-tkt.UnderlineButton(canvas, (740, 530), text="GitHub (Source)", through=True,
+tkt.UnderlineButton(canvas, (740, 530), text="GitHub (Source)", through=True, anchor="center",
                     command=lambda: webbrowser.open_new_tab("https://github.com/Xiaokang2022/tkintertools"))
-tkt.UnderlineButton(canvas, (740, 570), text="Gitee (Mirror)", through=True,
+tkt.UnderlineButton(canvas, (740, 570), text="Gitee (Mirror)", through=True, anchor="center",
                     command=lambda: webbrowser.open_new_tab("https://gitee.com/xiaokang-2022/tkintertools"))
-tkt.UnderlineButton(canvas, (740, 610), text="GitCode (Mirror)", through=True,
+tkt.UnderlineButton(canvas, (740, 610), text="GitCode (Mirror)", through=True, anchor="center",
                     command=lambda: webbrowser.open_new_tab("https://gitcode.com/Xiaokang2022/tkintertools"))
-tkt.UnderlineButton(canvas, (740, 650), text="Bug Reports", through=True,
+tkt.UnderlineButton(canvas, (740, 650), text="Bug Reports", through=True, anchor="center",
                     command=lambda: webbrowser.open_new_tab("https://github.com/Xiaokang2022/tkintertools/issues"))
 
 
@@ -163,7 +163,7 @@ tkt.CheckButton(canvas, (125, 35), command=root.fullscreen)
 i = tkt.Text(canvas, (440, 50),
              text="tkintertools 3: a Brand New UI Framework", fontsize=26, name="", anchor="center")
 
-tkt.HighlightButton(canvas, (790, 50), text="Get More!", command=MyToplevel)
+tkt.HighlightButton(canvas, (790, 50), text="Get More!", command=MyToplevel, anchor="center")
 
 tkt.Button(canvas, (900, 405), (360, 50),
            text="Call a Nested Window", command=lambda: toolbox.embed_window(tkt.Toplevel(), root))

@@ -94,7 +94,7 @@ login_widgets = [
                text="Login", name="", command=lambda: alert("Login Success!")),
     tkt.Text(canvas, (135+450, 470+70),
              text="Do not have an account?", fontsize=18, anchor="center"),
-    tkt.UnderlineButton(canvas, (340+450, 470+70),
+    tkt.UnderlineButton(canvas, (340+450, 470+70), anchor="center",
                         text="Sign up", fontsize=18, command=move_right)
 ]
 login_widgets[-3]._shapes[0].styles = {"normal": {"fill": "#B3C1EE", "outline": "grey"},
@@ -117,7 +117,7 @@ signup_widgets = [
                text="Sign Up", name="", command=lambda: alert("Sign Up Success!")),
     tkt.Text(canvas, (135+450-900, 470+70),
              text="Already have an account?", fontsize=18, anchor="center"),
-    tkt.UnderlineButton(canvas, (350+450-900, 470+70),
+    tkt.UnderlineButton(canvas, (350+450-900, 470+70), anchor="center",
                         text="Login", fontsize=18, command=move_left)
 ]
 signup_widgets[-3]._shapes[0].styles = {"normal": {"fill": "#00BFA5", "outline": "grey"},
