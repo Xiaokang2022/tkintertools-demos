@@ -2,18 +2,18 @@ import random
 
 import tkintertools as tkt
 import tkintertools.animation as animation
-import tkintertools.core.constants as constants
+import tkintertools.core.configs as configs
 import tkintertools.core.virtual as virtual
 import tkintertools.standard.shapes as shapes
 import tkintertools.style as style
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "LXGW WenKai"
+    configs.Font.family = "LXGW WenKai"
 
 
 def alert(text: str) -> None:
-    hint._texts[0].set(text)
+    hint.texts[0].set(text)
     animation.MoveWidget(
         hint, 500, (0, -130*canvas.ratios[1]), controller=animation.rebound, fps=60).start()
     animation.MoveWidget(
@@ -59,7 +59,7 @@ class DummyFrame(virtual.Widget):
     ) -> None:
         super().__init__(master, position, size, name=name,
                          state=state, through=through, animation=animation)
-        if constants.SYSTEM == "Windows10":
+        if configs.Env.system == "Windows10":
             shapes.Rectangle(self)
         else:
             shapes.RoundedRectangle(self, radius=16)
@@ -97,8 +97,8 @@ login_widgets = [
     tkt.UnderlineButton(canvas, (340+450, 470+70), anchor="center",
                         text="Sign up", fontsize=18, command=move_right)
 ]
-login_widgets[-3]._shapes[0].styles = {"normal": {"fill": "#B3C1EE", "outline": "grey"},
-                                       "hover": {"fill": "#EEC1EB", "outline": "grey"}}
+login_widgets[-3].shapes[0].styles = {"normal": {"fill": "#B3C1EE", "outline": "grey"},
+                                      "hover": {"fill": "#EEC1EB", "outline": "grey"}}
 login_widgets[-3].update()
 
 signup_widgets = [
@@ -120,8 +120,8 @@ signup_widgets = [
     tkt.UnderlineButton(canvas, (350+450-900, 470+70), anchor="center",
                         text="Login", fontsize=18, command=move_left)
 ]
-signup_widgets[-3]._shapes[0].styles = {"normal": {"fill": "#00BFA5", "outline": "grey"},
-                                        "hover": {"fill": "#448AFF", "outline": "grey"}}
+signup_widgets[-3].shapes[0].styles = {"normal": {"fill": "#00BFA5", "outline": "grey"},
+                                       "hover": {"fill": "#448AFF", "outline": "grey"}}
 signup_widgets[-3].update()
 
 hint = tkt.Label(canvas, (960, 730), (300, 100))

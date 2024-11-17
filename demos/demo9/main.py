@@ -12,16 +12,15 @@ import tkintertools.animation as animation
 import tkintertools.color as color
 import tkintertools.color.hsl as hsl
 import tkintertools.color.rgb as rgb
-import tkintertools.core.constants as constants
+import tkintertools.core.configs as configs
 import tkintertools.mpl as mpl
 import tkintertools.standard.dialogs as dialogs
-import tkintertools.standard.widgets as widgets
 import tkintertools.style as style
 import tkintertools.three as three
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "LXGW WenKai"
+    configs.Font.family = "LXGW WenKai"
 
 mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
 
@@ -59,16 +58,16 @@ class App(tkt.Tk):
 
         sizes = ((270, 50),)*10
         text = ("Basic Test", "Window Test", "Text Test", "Image Test",
-                 "Matplotlib Test", "3D Test", "Animation Test", "Dialog Test",
-                 "Color Test", "About TKT")
+                "Matplotlib Test", "3D Test", "Animation Test", "Dialog Test",
+                "Color Test", "About TKT")
 
         tkt.SegmentedButton(canvas, (20, 140), sizes,
                             text=text, command=self.call_canvas, layout="vertical")
 
         animation.GradientItem(
-            canvas, title._texts[0].items[0], "fill", 2000, ("red", "orange"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
+            canvas, title.texts[0].items[0], "fill", 2000, ("red", "orange"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
         animation.GradientItem(
-            canvas, sub_title._texts[0].items[0], "fill", 2000, ("green", "cyan"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
+            canvas, sub_title.texts[0].items[0], "fill", 2000, ("green", "cyan"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
 
     def call_canvas(self, index: int) -> None:
         """"""
@@ -131,10 +130,10 @@ class BasicestCanvas(tkt.Canvas):
         tkt.SegmentedButton(self, (500, 360), layout="vertical", text=(
             "Option1", "Option2", "Option3")).disabled()
 
-        widgets.OptionButton(self, (640, 360))
-        widgets.ComboBox(self, (640, 440))
+        # widgets.OptionButton(self, (640, 360))
+        # widgets.ComboBox(self, (640, 440))
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
 
 class WindowTestCanvas(tkt.Canvas):
@@ -151,7 +150,7 @@ class WindowTestCanvas(tkt.Canvas):
 
         tkt.Text(self, (350, 20), text="Style (Win10 / Win11)")
         tkt.Switch(self, (350, 60), command=lambda b: self.restart(
-            "Windows11" if b else "Windows10"), default=constants.SYSTEM == "Windows11")
+            "Windows11" if b else "Windows10"), default=configs.Env.system == "Windows11")
 
         tkt.Text(self, (650, 20), text="HideTitleBar (False / True)")
         tkt.Switch(self, (650, 60), command=lambda b: style.customize_window(
@@ -177,7 +176,7 @@ class WindowTestCanvas(tkt.Canvas):
 
         t = tkt.Text(self, (20, 420), text="Alpha (100%)")
         tkt.Slider(self, (20, 460), (350, 30), command=lambda p: (
-            t._texts[0].set("Alpha (%d%%)" % (p*100)), root.alpha(p)), default=root.alpha())
+            t.texts[0].set("Alpha (%d%%)" % (p*100)), root.alpha(p)), default=root.alpha())
 
         tkt.Text(self, (450, 420), text="DisabledMaxButton")
         tkt.Switch(self, (450, 460), command=lambda b: style.customize_window(
@@ -187,15 +186,15 @@ class WindowTestCanvas(tkt.Canvas):
         tkt.Switch(self, (700, 460), command=lambda b: style.customize_window(
             root, disable_minimize_button=b))
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
     def restart(self, win: typing.Literal["Windows10", "Windows11"]) -> None:
         global root
         root.update_idletasks()
         root.destroy()
-        constants.SYSTEM = win
+        configs.Env.system = win
         root = App(
-            title="%s %s - %s" % (tkt.__name__, tkt.__version__, constants.SYSTEM))
+            title="%s %s - %s" % (tkt.__name__, tkt.__version__, configs.Env.system))
         root.center()
         root.mainloop()
 
@@ -224,7 +223,7 @@ class TextTestCanvas(tkt.Canvas):
         tkt.Text(self, (300, 200), text="SpinBox")
         tkt.SpinBox(self, (300, 240))
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
 
 class ImageTestCanvas(tkt.Canvas):
@@ -253,7 +252,7 @@ class ImageTestCanvas(tkt.Canvas):
         sx.set(0.5)
         sy.set(0.5)
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
     def zoom_image(self, x: float, y: float):
         x = (3*x + 1)/2
@@ -294,7 +293,7 @@ class MplTestCanvas(tkt.Canvas):
         mpl.FigureToolbar(self, figure_canvas)
         figure_canvas.pack(side="top", fill="both", expand=True)
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
 
 class ThreeDTestCanvas(three.Space):
@@ -341,7 +340,7 @@ class ThreeDTestCanvas(three.Space):
         tkt.Switch(self, (20, 60), command=lambda flag: an.start()
                    if flag else an.stop())
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
     def _callback(self, _: float) -> None:
         """callback function of animation"""
@@ -353,7 +352,7 @@ class ThreeDTestCanvas(three.Space):
         self.space_sort()
         t = time.time()
         try:
-            self.fps._texts[0].set("FPS: %d" % (1 / (t-self.time)))
+            self.fps.texts[0].set("FPS: %d" % (1 / (t-self.time)))
         except ZeroDivisionError:
             pass
         self.time = t
@@ -385,7 +384,7 @@ class AnimationTestCanvas(tkt.Canvas):
         self.item = self.create_oval(
             100, 300, 150, 350, fill="orange", outline="grey")
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
     def move_item(self, back: bool) -> None:
         func = [animation.flat, animation.smooth,
@@ -426,7 +425,7 @@ class DialogTestCanvas(tkt.Canvas):
         tkt.Button(self, (20, 460), text="Generate Message Box!",
                    command=lambda: dialogs.TkMessage("Message", "Detail", icon=icons[s1.get()], option=types[s2.get()]))
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
 
 class ColorTestCanvas(tkt.Canvas):
@@ -465,13 +464,13 @@ class ColorTestCanvas(tkt.Canvas):
         tkt.Text(self, (700, 20), text="RGBA (Experimental)")
 
         _l = tkt.Label(self, (700, 60), (200, 280), name="")
-        _l._shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
-                                "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
+        _l.shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
+                               "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
         _l.update()
         self.update_idletasks()
-        self._re_place()
+        self.re_place()
 
 
-root = App(title=f"{tkt.__name__} {tkt.__version__} - {constants.SYSTEM}")
+root = App(title=f"{tkt.__name__} {tkt.__version__} - {configs.Env.system}")
 root.center()
 root.mainloop()

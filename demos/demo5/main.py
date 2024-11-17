@@ -9,7 +9,7 @@ import numpy
 import PIL.Image as Image
 import PIL.ImageTk as ImageTk
 import tkintertools as tkt
-import tkintertools.core.constants as constants
+import tkintertools.core.configs as configs
 import tkintertools.mpl as mpl
 import tkintertools.standard.dialogs as dialogs
 import tkintertools.style as style
@@ -89,7 +89,7 @@ def plot_correlation(
                     best_offset = dx, dy
 
     if plot:
-        a._texts[0].set(f"最佳结果: {best_offset}, {max_correlation:.2f}")
+        a.texts[0].set(f"最佳结果: {best_offset}, {max_correlation:.2f}")
 
         data_x = numpy.array([[i]*(side+1) for i in range(-half, half+1)])
         data_y = numpy.array([range(-half, half+1) for _ in range(side+1)])
@@ -203,7 +203,7 @@ def caculate() -> None:
         dialogs.TkMessage(e.__class__.__name__, e, title="遇到错误", icon="error")
     finally:
         c.disabled(False)
-        b._texts[0].set(f"计算耗时: {time.time()-t:0.3f} s")
+        b.texts[0].set(f"计算耗时: {time.time()-t:0.3f} s")
 
 
 def show() -> None:
@@ -228,7 +228,7 @@ def show() -> None:
 # constants.SYSTEM = "Windows11"
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "LXGW WenKai"
+    configs.Font.family = "LXGW WenKai"
 
 mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
 

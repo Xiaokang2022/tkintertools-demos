@@ -49,7 +49,7 @@ class LoginToplevel(tkt.Toplevel):
         self.animation_lock = True
         k = -1 if back else 1
         self.after(
-            250, self.sub_title._texts[0].set, "登录到你的账号" if back else "注册新的账号")
+            250, self.sub_title.texts[0].set, "登录到你的账号" if back else "注册新的账号")
         self.after(
             250, self.title, "登录" if back else "注册")
         animation.MoveWidget(self.sub_title, 500, (0, -80),

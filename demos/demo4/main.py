@@ -7,13 +7,13 @@ import numpy
 import tkintertools as tkt
 import tkintertools.animation.animations as animations
 import tkintertools.animation.controllers as controllers
-import tkintertools.core.constants as constants
+import tkintertools.core.configs as configs
 import tkintertools.mpl as mpl
 import tkintertools.style as style
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "LXGW WenKai"
+    configs.Font.family = "LXGW WenKai"
 
 mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
 
@@ -80,12 +80,11 @@ root.mainloop()
 
 """
 3st Window
+NOTE: This example is experimental!
+TIPS: You can choose two different backends for the animation below
 """
 
-# NOTE: This example is experimental!
-# TIPS: You can choose two different backends for the animation below
-
-# ANIMATION_BACKEND: typing.Literal["mpl", "tkt"] = "mpl"
+# ANIMATION_BACKEND: typing.Literal["mpl", "tkt"] = "tkt"
 
 # fig = figure.Figure() if ANIMATION_BACKEND == "tkt" else pyplot.figure()
 # ax = fig.add_subplot()
@@ -115,9 +114,9 @@ root.mainloop()
 
 # if ANIMATION_BACKEND == "tkt":
 #     animations.Animation(1000, callback=lambda _: ani._step(),
-#                         controller=controllers.flat, repeat=-1).start()
+#                          controller=controllers.flat, repeat=-1).start()
 # else:
-#     root.shutdown(pyplot.close, ensure_destroy=True)
+#     root.shutdown(pyplot.close, True)
 
 
 # root.mainloop()

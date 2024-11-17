@@ -6,7 +6,7 @@ import matplotlib.figure as figure
 import numpy
 import tkintertools as tkt
 import tkintertools.animation as animation
-import tkintertools.core.constants as constants
+import tkintertools.core.configs as configs
 import tkintertools.media as media
 import tkintertools.mpl as mpl
 import tkintertools.style as style
@@ -15,12 +15,12 @@ import tkintertools.toolbox as toolbox
 
 # Optional operations #
 
-# constants.SYSTEM = "Windows10"
+# configs.Env.system = "Windows10"
 
-# if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-#     constants.FONT = "LXGW WenKai"
+if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
+    configs.Font.family = "LXGW WenKai"
 
-# mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
+mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
 
 # Optional operations #
 

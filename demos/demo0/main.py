@@ -5,7 +5,7 @@ import webbrowser
 import tkintertools as tkt
 import tkintertools.animation as animation
 import tkintertools.color as color
-import tkintertools.core.constants as constants
+import tkintertools.core.configs as configs
 import tkintertools.core.virtual as virtual
 import tkintertools.standard.dialogs as dialogs
 import tkintertools.standard.features as features
@@ -20,11 +20,11 @@ canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min", free_anchor=True)
 canvas.place(width=1280, height=720, x=640, y=360, anchor="center")
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
-    constants.FONT = "LXGW WenKai"
+    configs.Font.family = "LXGW WenKai"
 
-constants.SIZE = -24
+configs.Font.size = -24
 
-ORIGIN_SYSTEM = constants.SYSTEM
+ORIGIN_SYSTEM = configs.Env.system
 
 img = tkt.Image(canvas, (0, 0), image=tkt.PhotoImage(
     file=f"./assets/images/{style.get_color_mode()}.png"))
@@ -37,7 +37,7 @@ Data Card (RGBA - Experimental)
 """
 
 _l = tkt.Label(canvas, (620, 390), (240, 310), name="")
-_l._shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
+_l.shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
                         "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
 _l.update()
 
@@ -63,7 +63,7 @@ class MyToplevel(tkt.Toplevel):
     """My Customized Toplevel"""
 
     def __init__(self, *args, **kw) -> None:
-        constants.SYSTEM = ORIGIN_SYSTEM
+        configs.Env.system = ORIGIN_SYSTEM
         super().__init__(*args, size=(720, 405), **kw)
         self.transient(self.master)
         self.center(self.master)
@@ -89,12 +89,12 @@ class MyToplevel(tkt.Toplevel):
         canvas.create_rectangle(220, 70, 500, 350, dash=".", outline="red")
         canvas.create_text(360, 40, text="Widget", fill="red")
 
-        self.shape: tkt.Shape = None
-        self.text: tkt.Text = None
-        self.image: tkt.Image = None
-        self.feature: tkt.Feature = None
+        self.shape: virtual.Shape = None
+        self.text: virtual.Text = None
+        self.image: virtual.Image = None
+        self.feature: virtual.Feature = None
         self.style: dict = None
-        self.widget: tkt.Widget = None
+        self.widget: virtual.Widget = None
 
         tkt.Button(canvas, (585, 275), text="Clear", command=self.clear)
         tkt.Button(canvas, (585, 340), text="Generate", command=self.generate)
@@ -124,7 +124,7 @@ class MyToplevel(tkt.Toplevel):
                 "hover": {"fill": self.randcolor(), "outline": self.randcolor()},
                 "active": {"fill": self.randcolor(), "outline": self.randcolor()},
             }
-        except:
+        except Exception:
             self.canvas.itemconfigure(self.s, text="Param\nError")
         _t = self.text(self.widget, text="TKT")
         self.text = self.text(self.widget, (-280, 0), text="TKT")
@@ -163,7 +163,8 @@ tkt.CheckButton(canvas, (125, 35), command=root.fullscreen)
 i = tkt.Text(canvas, (440, 50),
              text="tkintertools 3: a Brand New UI Framework", fontsize=26, name="", anchor="center")
 
-tkt.HighlightButton(canvas, (790, 50), text="Get More!", command=MyToplevel, anchor="center")
+tkt.HighlightButton(canvas, (790, 50), text="Get More!",
+                    command=MyToplevel, anchor="center")
 
 tkt.Button(canvas, (900, 405), (360, 50),
            text="Call a Nested Window", command=lambda: toolbox.embed_window(tkt.Toplevel(), root))
@@ -174,20 +175,20 @@ tkt.Button(canvas, (900, 525), (360, 50),
 
 info = tkt.Button(canvas, (900, 585), (175, 50), name="",
                   text="Information", command=lambda: dialogs.TkMessage(icon="info"))
-info._shapes[0].styles = {"normal": {"fill": "skyblue", "outline": "grey"}}
+info.shapes[0].styles = {"normal": {"fill": "skyblue", "outline": "grey"}}
 info.update()
 question = tkt.Button(canvas, (900 + 185, 585), (175, 50), name="",
                       text="Question", command=lambda: dialogs.TkMessage(icon="question"))
-question._shapes[0].styles = {"normal": {
+question.shapes[0].styles = {"normal": {
     "fill": "lightgreen", "outline": "grey"}}
 question.update()
 warning = tkt.Button(canvas, (900, 645), (175, 50), name="",
                      text="Warning", command=lambda: dialogs.TkMessage(icon="warning"))
-warning._shapes[0].styles = {"normal": {"fill": "orange", "outline": "grey"}}
+warning.shapes[0].styles = {"normal": {"fill": "orange", "outline": "grey"}}
 warning.update()
 error = tkt.Button(canvas, (900 + 185, 645), (175, 50), name="",
                    text="Error", command=lambda: dialogs.TkMessage(icon="error"))
-error._shapes[0].styles = {"normal": {"fill": "red", "outline": "grey"}}
+error.shapes[0].styles = {"normal": {"fill": "red", "outline": "grey"}}
 error.update()
 
 
@@ -196,7 +197,7 @@ contast_color = color.rgb_to_str(
     color.contrast(color.str_to_rgb(random_color)))
 
 
-animation.GradientItem(canvas, i._texts[0].items[0], "fill", 2000, (random_color, contast_color),
+animation.GradientItem(canvas, i.texts[0].items[0], "fill", 2000, (random_color, contast_color),
                        repeat=-1, controller=lambda x: math.sin(x*math.pi)).start()
 
 
@@ -205,21 +206,21 @@ Here's the part for customizing the system
 """
 
 
-constants.SYSTEM = "Windows11"
+configs.Env.system = "Windows11"
 
 tkt.Label(canvas, (50, 100), (120, 50), text="Label")
 tkt.Label(canvas, (180, 100), (120, 50), text="Label").disabled()
 l = tkt.Label(canvas, (310, 100), (120, 50), text="Label", name="")
-l._shapes[0].styles = {"normal": {"fill": "", "outline": "#5E8BDE"},
+l.shapes[0].styles = {"normal": {"fill": "", "outline": "#5E8BDE"},
                        "hover": {"fill": "", "outline": "#FFAC33"}}
-l._texts[0].styles = {"normal": {"fill": "#5E8BDE"},
+l.texts[0].styles = {"normal": {"fill": "#5E8BDE"},
                       "hover": {"fill": "#FFAC33"}}
 l.update()
 
 tkt.Button(canvas, (50, 180), (120, 50), text="Button")
 tkt.Button(canvas, (180, 180), (120, 50), text="Button").disabled()
 b = tkt.Button(canvas, (310, 180), (120, 50), text="Button", name="")
-b._shapes[0].styles = {"normal": {"fill": "#5E8BDE", "outline": "#5E8BDE"},
+b.shapes[0].styles = {"normal": {"fill": "#5E8BDE", "outline": "#5E8BDE"},
                        "hover": {"fill": "#CCCC00", "outline": "#CCCC00"},
                        "active": {"fill": "#FFAC33", "outline": "#FFAC33"}}
 b.update()
@@ -227,9 +228,9 @@ b.update()
 pb1 = tkt.ProgressBar(canvas, (50, 260), (380, 8))
 pb2 = tkt.ProgressBar(canvas, (50, 280), (380, 8), name="")
 
-pb2._shapes[0].styles = {"normal": {"fill": "", "outline": ""}}
-pb2._shapes[1].styles = {"normal": {"fill": "gold", "outline": "gold"}}
-pb2._shapes[1].disappear()
+pb2.shapes[0].styles = {"normal": {"fill": "", "outline": ""}}
+pb2.shapes[1].styles = {"normal": {"fill": "gold", "outline": "gold"}}
+pb2.shapes[1].disappear()
 pb2.update()
 
 animation.Animation(2000, animation.smooth, callback=pb1.set,
@@ -240,9 +241,9 @@ animation.Animation(2000, animation.smooth, callback=pb2.set,
 pb3 = tkt.ProgressBar(canvas, (50, 315), (380, 20))
 pb4 = tkt.ProgressBar(canvas, (50, 350), (380, 20), name="")
 
-pb4._shapes[0].styles = {"normal": {"fill": "", "outline": "grey"}}
-pb4._shapes[1].styles = {"normal": {"fill": "pink", "outline": "pink"}}
-pb4._shapes[1].disappear()
+pb4.shapes[0].styles = {"normal": {"fill": "", "outline": "grey"}}
+pb4.shapes[1].styles = {"normal": {"fill": "pink", "outline": "pink"}}
+pb4.shapes[1].disappear()
 pb4.update()
 
 animation.Animation(2000, animation.smooth, callback=pb3.set,
@@ -273,7 +274,7 @@ e = tkt.InputBox(canvas, (50, 655 - 5), (270, 50))
 e.set("Input")
 e.disabled()
 
-constants.SYSTEM = "Windows10"
+configs.Env.system = "Windows10"
 
 tkt.Label(canvas, (50 + 410, 100), (120, 50), text="Label")
 tkt.Label(canvas, (180 + 410, 100), (120, 50), text="Label").disabled()
@@ -283,18 +284,18 @@ tkt.Button(canvas, (50 + 410, 180), (120, 50), text="Button")
 tkt.Button(canvas, (180 + 410, 180), (120, 50), text="Button").disabled()
 b2 = tkt.Button(canvas, (310 + 410, 180), (120, 50), text="Button", name="")
 
-b2._shapes[0].styles = {"normal": {"fill": "", "outline": ""},
+b2.shapes[0].styles = {"normal": {"fill": "", "outline": ""},
                         "hover": {"fill": "yellow", "outline": "red"}}
-b2._texts[0].styles = {"normal": {"fill": ""},
+b2.texts[0].styles = {"normal": {"fill": ""},
                        "hover": {"fill": "black"}}
 b2.update()
 
 pb5 = tkt.ProgressBar(canvas, (50 + 410, 260), (380, 8))
 pb6 = tkt.ProgressBar(canvas, (50 + 410, 280), (380, 8), name="")
 
-pb6._shapes[0].styles = {"normal": {"fill": "orange", "outline": "orange"}}
-pb6._shapes[1].styles = {"normal": {"fill": "red", "outline": "red"}}
-pb6._shapes[1].disappear()
+pb6.shapes[0].styles = {"normal": {"fill": "orange", "outline": "orange"}}
+pb6.shapes[1].styles = {"normal": {"fill": "red", "outline": "red"}}
+pb6.shapes[1].disappear()
 pb6.update()
 
 animation.Animation(2000, animation.flat, callback=pb5.set,
@@ -305,9 +306,9 @@ animation.Animation(2000, animation.flat, callback=pb6.set,
 pb7 = tkt.ProgressBar(canvas, (50 + 410, 315), (380, 20))
 pb8 = tkt.ProgressBar(canvas, (50 + 410, 350), (380, 20), name="")
 
-pb8._shapes[0].styles = {"normal": {"fill": "", "outline": ""}}
-pb8._shapes[1].styles = {"normal": {"fill": "purple", "outline": "cyan"}}
-pb8._shapes[1].disappear()
+pb8.shapes[0].styles = {"normal": {"fill": "", "outline": ""}}
+pb8.shapes[1].styles = {"normal": {"fill": "purple", "outline": "cyan"}}
+pb8.shapes[1].disappear()
 pb8.update()
 
 animation.Animation(2000, animation.flat, callback=pb7.set,
@@ -353,7 +354,7 @@ tkt.IconButton(canvas, (900, 300), text="Minecraft", image=tkt.PhotoImage(
 tkt.IconButton(canvas, (1070, 300), text="Ubuntu", image=tkt.PhotoImage(
     file="./assets/images/logo-Ubuntu.png"))
 
-constants.SYSTEM = "Windows11"
+configs.Env.system = "Windows11"
 
 i2 = tkt.Text(canvas, (1210, 100), text="0%", anchor="nw")
 tkt.Slider(canvas, (900, 100), (300, 30),
