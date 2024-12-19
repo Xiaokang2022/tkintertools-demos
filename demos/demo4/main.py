@@ -21,35 +21,35 @@ mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
 1st Window
 """
 
-# fig = figure.Figure()
-# ax = fig.add_subplot(projection='3d')
+fig = figure.Figure()
+ax = fig.add_subplot(projection='3d')
 
-# colors = ['r', 'g', 'b', 'y']
-# yticks = [3, 2, 1, 0]
+colors = ['r', 'g', 'b', 'y']
+yticks = [3, 2, 1, 0]
 
-# for c, k in zip(colors, yticks):
-#     xs = numpy.arange(20)
-#     ys = numpy.random.rand(20)
-#     cs = [c] * len(xs)
-#     cs[0] = 'c'
-#     ax.bar(xs, ys, zs=k, zdir='y', color=cs, alpha=0.8)
+for c, k in zip(colors, yticks):
+    xs = numpy.arange(20)
+    ys = numpy.random.rand(20)
+    cs = [c] * len(xs)
+    cs[0] = 'c'
+    ax.bar(xs, ys, zs=k, zdir='y', color=cs, alpha=0.8)
 
-# ax.set_xlabel('X')
-# ax.set_ylabel('Y')
-# ax.set_zlabel('Z')
-# ax.set_title("3D")
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_title("3D")
 
-# ax.set_yticks(yticks)
+ax.set_yticks(yticks)
 
-# root = tkt.Tk((960, 720), title="Matplotlib Test - 3D Plot")
-# root.center()
-# canvas = tkt.Canvas(root, zoom_item=True)
-# canvas.place(width=960, height=720)
-# figure_canvas = mpl.FigureCanvas(canvas, fig)
-# toolbar = mpl.FigureToolbar(canvas, figure_canvas)
-# figure_canvas.pack(side="top", fill="both", expand=True)
+root = tkt.Tk((960, 720), title="Matplotlib Test - 3D Plot")
+root.center()
+canvas = tkt.Canvas(root, zoom_item=True)
+canvas.place(width=960, height=720)
+figure_canvas = mpl.FigureCanvas(canvas, fig)
+toolbar = mpl.FigureToolbar(canvas, figure_canvas)
+figure_canvas.pack(side="top", fill="both", expand=True)
 
-# root.mainloop()
+root.mainloop()
 
 """
 2nd Winodow
@@ -84,39 +84,39 @@ NOTE: This example is experimental!
 TIPS: You can choose two different backends for the animation below
 """
 
-# ANIMATION_BACKEND: typing.Literal["mpl", "tkt"] = "tkt"
+ANIMATION_BACKEND: typing.Literal["mpl", "tkt"] = "tkt"
 
-# fig = figure.Figure() if ANIMATION_BACKEND == "tkt" else pyplot.figure()
-# ax = fig.add_subplot()
-# ax.grid()
-# ax.set(xlabel='x', ylabel='y', title='Animated line plot')
+fig = figure.Figure() if ANIMATION_BACKEND == "tkt" else pyplot.figure()
+ax = fig.add_subplot()
+ax.grid()
+ax.set(xlabel='x', ylabel='y', title='Animated line plot')
 
-# x = numpy.arange(0, 2*numpy.pi, 0.01)
-# line, = ax.plot(x, numpy.sin(x))
-
-
-# def animate(i):
-#     line.set_ydata(numpy.sin(x + i / 50))  # update the data.
-#     return line,
+x = numpy.arange(0, 2*numpy.pi, 0.01)
+line, = ax.plot(x, numpy.sin(x))
 
 
-# ani = animation.FuncAnimation(
-#     fig, animate, interval=1, blit=True, save_count=50)
-
-# root = tkt.Tk((960, 720), title="Matplotlib Test - Normal Plot")
-# root.center()
-# canvas = tkt.Canvas(root, zoom_item=True)
-# canvas.place(width=960, height=720)
-# figure_canvas = mpl.FigureCanvas(canvas, fig)
-# toolbar = mpl.FigureToolbar(canvas, figure_canvas)
-# figure_canvas.pack(side="top", fill="both", expand=True)
+def animate(i):
+    line.set_ydata(numpy.sin(x + i / 50))  # update the data.
+    return line,
 
 
-# if ANIMATION_BACKEND == "tkt":
-#     animations.Animation(1000, callback=lambda _: ani._step(),
-#                          controller=controllers.flat, repeat=-1).start()
-# else:
-#     root.shutdown(pyplot.close, True)
+ani = animation.FuncAnimation(
+    fig, animate, interval=1, blit=True, save_count=50)
+
+root = tkt.Tk((960, 720), title="Matplotlib Test - Normal Plot")
+root.center()
+canvas = tkt.Canvas(root, zoom_item=True)
+canvas.place(width=960, height=720)
+figure_canvas = mpl.FigureCanvas(canvas, fig)
+toolbar = mpl.FigureToolbar(canvas, figure_canvas)
+figure_canvas.pack(side="top", fill="both", expand=True)
 
 
-# root.mainloop()
+if ANIMATION_BACKEND == "tkt":
+    animations.Animation(1000, callback=lambda _: ani._step(),
+                         controller=controllers.flat, repeat=-1).start()
+else:
+    root.shutdown(pyplot.close, True)
+
+
+root.mainloop()

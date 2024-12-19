@@ -49,13 +49,13 @@ class DummyFrame(virtual.Widget):
     def __init__(
         self,
         master: tkt.Canvas,
-        position: tuple[int, int],
-        size: tuple[int, int],
+        position: tuple[int, int] = (0, 0),
+        size: tuple[int, int] | None = None,
         *,
         name: str | None = None,
         state: str = "normal",
-        through: bool = False,
-        animation: bool = True,
+        through: bool | None = None,
+        animation: bool | None = None,
     ) -> None:
         super().__init__(master, position, size, name=name,
                          state=state, through=through, animation=animation)

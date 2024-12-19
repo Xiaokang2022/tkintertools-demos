@@ -371,7 +371,7 @@ class AnimationTestCanvas(tkt.Canvas):
             "Flat", "Smooth", "Rebound"), default=0)
 
         tkt.Text(self, (350, 20), text="Duration (ms)")
-        self.ms = tkt.SpinBox(self, (350, 60))
+        self.ms = tkt.SpinBox(self, (350, 60), step=100)
 
         tkt.Text(self, (600, 20), text="FPS")
         self.fps = tkt.SpinBox(self, (600, 60))
