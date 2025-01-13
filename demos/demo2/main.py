@@ -10,13 +10,13 @@ import tkintertools.standard.dialogs as dialogs
 import tkintertools.standard.features as features
 import tkintertools.standard.shapes as shapes
 import tkintertools.standard.texts as texts
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):  # 加载指定字体文件
     configs.Font.family = "LXGW WenKai"  # 指定全局字体
 
-# style.set_theme_map(light="./demos/demo2/mytheme", dark="./demos/demo2/mytheme",
+# theme.set_theme_map(light="./demos/demo2/mytheme", dark="./demos/demo2/mytheme",
 #                 folder="./demos/demo2")  # 设置自定义的颜色主题
 
 
@@ -42,7 +42,7 @@ class Piece(virtual.Widget):
             self, master, index_to_position(*position), (60, 60))
         Circle(self, name=f".{color}")
         texts.Information(self, text=text, fontsize=32)
-        features.ButtonFeature(
+        self.feature = features.ButtonFeature(
             self, command=lambda: move_mark(self.bx, self.by))
         self.color = color
         self.bx, self.by = position
@@ -97,7 +97,7 @@ def move_cursor(event: tkinter.Event) -> None:
         delta = (result[0]-cursor_index[0])*125 * \
             k, (result[1]-cursor_index[1])*125*k
         cursor_index = result
-        animation.MoveItem(canvas, cursor, 240, delta,
+        animation.MoveItem(canvas, cursor, delta, 240,
                            controller=animation.smooth, fps=60).start()
 
 
@@ -153,7 +153,7 @@ def click(event: tkinter.Event) -> None:
         if result in pos:
             dx, dy = result[0]-selected_piece.bx, result[1]-selected_piece.by
             delta = dx*125*k, dy*125*k
-            animation.MoveWidget(selected_piece, 500, delta,
+            animation.MoveWidget(selected_piece, delta, 500,
                                  controller=animation.smooth, fps=60).start()
             if ok[pos.index(result)][-1]:
                 kx, ky = result[0]-dx//2, result[1]-dy//2
@@ -248,7 +248,7 @@ player: typing.Literal["white", "black"] = "white"  # 当前玩家
 
 root = tkt.Tk((600, 600), title="Simple Game")  # 根窗口
 root.center()  # 窗口屏幕居中
-canvas = tkt.Canvas(root, zoom_item=True, keep_ratio="min",
+canvas = tkt.Canvas(auto_zoom=True, keep_ratio="min", zoom_all_items=True,
                     free_anchor=True)  # 主画布
 canvas.place(width=600, height=600, x=300, y=300, anchor="center")
 canvas.bind("<Motion>", move_cursor, add="+")  # 绑定鼠标移动事件

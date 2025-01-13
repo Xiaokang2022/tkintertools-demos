@@ -1,12 +1,9 @@
 import random
 
 import tkintertools as tkt
-import tkintertools.animation as animation
-import tkintertools.core.configs as configs
-import tkintertools.core.virtual as virtual
-import tkintertools.standard.shapes as shapes
-import tkintertools.style as style
-import tkintertools.toolbox as toolbox
+from tkintertools import animation, theme, toolbox
+from tkintertools.core import configs, virtual
+from tkintertools.standard import shapes, styles
 
 if toolbox.load_font("assets/fonts/LXGWWenKai-Regular.ttf"):
     configs.Font.family = "LXGW WenKai"
@@ -15,36 +12,33 @@ if toolbox.load_font("assets/fonts/LXGWWenKai-Regular.ttf"):
 def alert(text: str) -> None:
     hint.texts[0].set(text)
     animation.MoveWidget(
-        hint, 500, (0, -130*canvas.ratios[1]), controller=animation.rebound, fps=60).start()
+        hint, (0, -130*cv.ratios[1]), 500, controller=animation.rebound, fps=60).start()
     animation.MoveWidget(
-        hint, 500, (0, 130*canvas.ratios[1]), controller=animation.smooth, fps=60).start(delay=2000)
+        hint, (0, 130*cv.ratios[1]), 500, controller=animation.smooth, fps=60).start(delay=2000)
 
 
 def move_right() -> None:
     for widget in login_widgets:
-        animation.MoveWidget(widget, 500, (900*canvas.ratios[0], 0),
-                             controller=animation.smooth, fps=60).start()
+        animation.MoveWidget(widget, (900*cv.ratios[0], 0), 500, controller=animation.smooth, fps=60).start()
     for widget in signup_widgets:
-        animation.MoveWidget(widget, 500, (900*canvas.ratios[0], 0),
-                             controller=animation.rebound, fps=60).start(delay=100)
+        animation.MoveWidget(widget, (900*cv.ratios[0], 0), 500, controller=animation.ease_out, fps=60).start(delay=100)
 
 
 def move_left() -> None:
     for widget in login_widgets:
-        animation.MoveWidget(widget, 500, (-900*canvas.ratios[0], 0),
-                             controller=animation.rebound, fps=60).start(delay=100)
+        animation.MoveWidget(widget, (-900*cv.ratios[0], 0), 500, controller=animation.ease_out, fps=60).start(delay=100)
     for widget in signup_widgets:
-        animation.MoveWidget(widget, 500, (-900*canvas.ratios[0], 0),
-                             controller=animation.smooth, fps=60).start()
+        animation.MoveWidget(widget, (-900*cv.ratios[0], 0), 500, controller=animation.smooth, fps=60).start()
 
 
-def get_random_int(min: int, max: int, interval: int) -> int:
-    a = random.randint(min, -interval)
-    b = random.randint(interval, max)
+def get_random_int(min_num: int, max_num: int, interval: int) -> int:
+    a = random.randint(min_num, -interval)
+    b = random.randint(interval, max_num)
     return random.choice((a, b))
 
 
-class DummyFrame(virtual.Widget):
+class MyWidget(virtual.Widget):
+    """My customized Widget."""
 
     def __init__(
         self,
@@ -52,78 +46,74 @@ class DummyFrame(virtual.Widget):
         position: tuple[int, int] = (0, 0),
         size: tuple[int, int] | None = None,
         *,
-        name: str | None = None,
-        state: str = "normal",
-        through: bool | None = None,
-        animation: bool | None = None,
+        capture_events: bool | None = None,
     ) -> None:
-        super().__init__(master, position, size, name=name,
-                         state=state, through=through, animation=animation)
+        super().__init__(master, position, size, capture_events=capture_events, style=styles.LabelStyle)
         if configs.Env.system == "Windows10":
             shapes.Rectangle(self)
         else:
             shapes.RoundedRectangle(self, radius=16)
 
 
-root = tkt.Tk(title="Simple Project - Login Window")
-canvas = tkt.Canvas(root, zoom_item=True, free_anchor=True, keep_ratio="max")
-canvas.place(width=1280, height=720, x=640, y=360, anchor="center")
+tk = tkt.Tk(title="Login Window")
+cv = tkt.Canvas(auto_zoom=True, free_anchor=True, keep_ratio="max")
+cv.place(width=1280, height=720, x=640, y=360, anchor="center")
 
-img = tkt.Image(canvas, (0, 0), image=tkt.PhotoImage(
-    file=f"./assets/images/{style.get_color_mode()}.png"))
+img = tkt.Image(cv, (0, 0), image=tkt.PhotoImage(
+    file=f"./assets/images/{theme.get_color_mode()}.png"))
 
-style.register_event(lambda theme: img.set(tkt.PhotoImage(
-    file="./assets/images/%s.png" % ("light", "dark")[theme])))
+theme.register_event(lambda theme: img.set(tkt.PhotoImage(
+    file="./assets/images/%s.png" % theme)))
 
 
 login_widgets = [
-    DummyFrame(canvas, (450, 70), (400, 560), name="Label"),
-    tkt.Switch(canvas, (330+440, 20+70), default=style.get_color_mode() == "dark",
-               command=lambda flag: style.set_color_mode("dark" if flag else "light")),
-    tkt.Text(canvas, (200+450, 80+70), text="Login",
+    MyWidget(cv, (450, 70), (400, 560)),
+    tkt.Switch(cv, (330+440, 20+70), default=theme.get_color_mode() == "dark",
+               command=lambda flag: theme.set_color_mode("dark" if flag else "light")),
+    tkt.Text(cv, (200+450, 80+70), text="Login",
              fontsize=48, weight="bold", anchor="center"),
-    tkt.Text(canvas, (30+450, 170+70), anchor="w",
+    tkt.Text(cv, (30+450, 170+70), anchor="w",
              text="Account", fontsize=24),
-    tkt.InputBox(canvas, (25+450, 190+70), (350, 50),
+    tkt.InputBox(cv, (25+450, 190+70), (350, 50),
                  placeholder="Please enter your account"),
-    tkt.Text(canvas, (30+450, 280+70), anchor="w",
+    tkt.Text(cv, (30+450, 280+70), anchor="w",
              text="Password", fontsize=24),
-    tkt.InputBox(canvas, (25+450, 300+70), (350, 50),
+    tkt.InputBox(cv, (25+450, 300+70), (350, 50),
                  show="●", placeholder="Please enter your password"),
-    tkt.Button(canvas, (25+450, 380+70), (350, 55),
-               text="Login", name="", command=lambda: alert("Login Success!")),
-    tkt.Text(canvas, (135+450, 470+70),
+    tkt.Button(cv, (25+450, 380+70), (350, 55),
+               text="Login", command=lambda: alert("Login Success!")),
+    tkt.Text(cv, (135+450, 470+70),
              text="Do not have an account?", fontsize=18, anchor="center"),
-    tkt.UnderlineButton(canvas, (340+450, 470+70), anchor="center",
+    tkt.UnderlineButton(cv, (340+450, 470+70), anchor="center",
                         text="Sign up", fontsize=18, command=move_right)
 ]
-login_widgets[-3].shapes[0].styles = {"normal": {"fill": "#B3C1EE", "outline": "grey"},
-                                      "hover": {"fill": "#EEC1EB", "outline": "grey"}}
-login_widgets[-3].update()
+login_widgets[4].style.set(bg_bar=(..., ..., "deepskyblue"))
+login_widgets[6].style.set(bg_bar=(..., ..., "deepskyblue"))
+login_widgets[-3].style.set(fg=("deepskyblue", "black"), bg=("#00000000", "deepskyblue"), ol=("deepskyblue", "deepskyblue"))
 
 signup_widgets = [
-    DummyFrame(canvas, (450-900, 70), (400, 560), name="Label"),
-    tkt.Text(canvas, (200+450-900, 80+70),
+    MyWidget(cv, (450-900, 70), (400, 560)),
+    tkt.Text(cv, (200+450-900, 80+70),
              text="Sign up", fontsize=48, weight="bold", anchor="center"),
-    tkt.Text(canvas, (30+450-900, 170+70),
+    tkt.Text(cv, (30+450-900, 170+70),
              anchor="w", text="Account", fontsize=24),
-    tkt.InputBox(canvas, (25+450-900, 190+70), (350, 50),
+    tkt.InputBox(cv, (25+450-900, 190+70), (350, 50),
                  placeholder="Please enter your account"),
-    tkt.Text(canvas, (30+450-900, 280+70), anchor="w",
+    tkt.Text(cv, (30+450-900, 280+70), anchor="w",
              text="Password", fontsize=24),
-    tkt.InputBox(canvas, (25+450-900, 300+70), (350, 50),
+    tkt.InputBox(cv, (25+450-900, 300+70), (350, 50),
                  show="●", placeholder="Please enter your password"),
-    tkt.Button(canvas, (25+450-900, 380+70), (350, 55),
-               text="Sign Up", name="", command=lambda: alert("Sign Up Success!")),
-    tkt.Text(canvas, (135+450-900, 470+70),
+    tkt.Button(cv, (25+450-900, 380+70), (350, 55),
+               text="Sign Up", command=lambda: alert("Sign Up Success!")),
+    tkt.Text(cv, (135+450-900, 470+70),
              text="Already have an account?", fontsize=18, anchor="center"),
-    tkt.UnderlineButton(canvas, (350+450-900, 470+70), anchor="center",
+    tkt.UnderlineButton(cv, (350+450-900, 470+70), anchor="center",
                         text="Login", fontsize=18, command=move_left)
 ]
-signup_widgets[-3].shapes[0].styles = {"normal": {"fill": "#00BFA5", "outline": "grey"},
-                                       "hover": {"fill": "#448AFF", "outline": "grey"}}
-signup_widgets[-3].update()
+signup_widgets[3].style.set(bg_bar=(..., ..., "#2CDE85"))
+signup_widgets[5].style.set(bg_bar=(..., ..., "#2CDE85"))
+signup_widgets[-3].style.set(fg=("#2CDB83", "black"), bg=("#00000000", "#2CDE85"), ol=("#2CDB83", "#2CDE85"))
 
-hint = tkt.Label(canvas, (960, 730), (300, 100))
+hint = tkt.Label(cv, (960, 730), (300, 100))
 
-root.mainloop()
+tk.mainloop()

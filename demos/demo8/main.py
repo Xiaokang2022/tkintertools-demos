@@ -1,17 +1,17 @@
 import math
 
 import tkintertools as tkt
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.three as three
 
 root = tkt.Tk((1600, 900), title="3D Test - Demo8")
-space = three.Space(root, keep_ratio="min", free_anchor=True, highlightthickness=0,
-                    bg="black" if style.get_color_mode() == "dark" else "white")
+space = three.Space(root, keep_ratio="min", free_anchor=True, highlightthickness=0)
+space["bg"] = "black" if theme.get_color_mode() == "dark" else "white"
 space.place(width=1600, height=900, x=800, y=450, anchor="center")
 space.update()
 
-style.register_event(lambda flag: space.configure(
-    bg="black" if flag else "white"))
+theme.register_event(lambda flag: space.configure(
+    bg="black" if flag == "dark" else "white"))
 
 r = 300
 
@@ -53,11 +53,11 @@ def animation():
         obj3D.rotate(-0.05, axis=Z.coordinates)
     for obj3D in line['z']:
         obj3D.rotate(-0.05, axis=X.coordinates)
-    # for obj3D in space.items_3d():
-    #     obj3D.rotate(0, -0.01, 0.01, center=O.center())
-        # obj3D.update()
+    for obj3D in space.components:
+        obj3D.rotate(0, -0.01, 0.01, center=O.center())
+        obj3D.update()
     root.after(10, animation)
 
 
-# animation()
+animation()
 root.mainloop()

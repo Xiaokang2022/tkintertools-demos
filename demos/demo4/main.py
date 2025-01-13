@@ -9,13 +9,13 @@ import tkintertools.animation.animations as animations
 import tkintertools.animation.controllers as controllers
 import tkintertools.core.configs as configs
 import tkintertools.mpl as mpl
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
     configs.Font.family = "LXGW WenKai"
 
-mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
+mpl.set_mpl_default_theme(theme.get_color_mode(), apply_font=True)
 
 """
 1st Window
@@ -43,7 +43,7 @@ ax.set_yticks(yticks)
 
 root = tkt.Tk((960, 720), title="Matplotlib Test - 3D Plot")
 root.center()
-canvas = tkt.Canvas(root, zoom_item=True)
+canvas = tkt.Canvas(root, auto_zoom=True)
 canvas.place(width=960, height=720)
 figure_canvas = mpl.FigureCanvas(canvas, fig)
 toolbar = mpl.FigureToolbar(canvas, figure_canvas)
@@ -69,7 +69,7 @@ ax.legend(["y=sin(x)"])
 
 root = tkt.Tk((960, 720), title="Matplotlib Test - Normal Plot")
 root.center()
-canvas = tkt.Canvas(root, zoom_item=True)
+canvas = tkt.Canvas(root, auto_zoom=True)
 canvas.place(width=960, height=720)
 figure_canvas = mpl.FigureCanvas(canvas, fig)
 toolbar = mpl.FigureToolbar(canvas, figure_canvas)
@@ -105,7 +105,7 @@ ani = animation.FuncAnimation(
 
 root = tkt.Tk((960, 720), title="Matplotlib Test - Normal Plot")
 root.center()
-canvas = tkt.Canvas(root, zoom_item=True)
+canvas = tkt.Canvas(root, auto_zoom=True)
 canvas.place(width=960, height=720)
 figure_canvas = mpl.FigureCanvas(canvas, fig)
 toolbar = mpl.FigureToolbar(canvas, figure_canvas)
@@ -113,10 +113,10 @@ figure_canvas.pack(side="top", fill="both", expand=True)
 
 
 if ANIMATION_BACKEND == "tkt":
-    animations.Animation(1000, callback=lambda _: ani._step(),
-                         controller=controllers.flat, repeat=-1).start()
+    animations.Animation(1000, lambda _: ani._step(),
+                         controller=controllers.linear, repeat=-1).start()
 else:
-    root.shutdown(pyplot.close, True)
+    root.at_exit(pyplot.close)
 
 
 root.mainloop()

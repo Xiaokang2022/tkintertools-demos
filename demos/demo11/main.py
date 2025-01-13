@@ -2,14 +2,16 @@ import itertools
 import math
 import statistics
 
+import matplotlib.animation as animation
 import matplotlib.figure as figure
 import numpy
 import tkintertools as tkt
-import tkintertools.animation as animation
+import tkintertools.animation.animations as animations
+import tkintertools.animation.controllers as controllers
 import tkintertools.core.configs as configs
 import tkintertools.media as media
 import tkintertools.mpl as mpl
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.three as three
 import tkintertools.toolbox as toolbox
 
@@ -20,26 +22,28 @@ import tkintertools.toolbox as toolbox
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
     configs.Font.family = "LXGW WenKai"
 
-mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
+mpl.set_mpl_default_theme(theme.get_color_mode(), apply_font=True)
 
 # Optional operations #
 
 
 # tkintertools-mpl-1 #
-t1 = numpy.arange(0.0, 2.0, 0.01)
-s1 = 1 + numpy.sin(2 * numpy.pi * t1)
-
 fig1 = figure.Figure()
-ax1 = fig1.add_subplot()
-ax1.plot(t1, s1)
+ax = fig1.add_subplot()
+ax.grid()
+ax.set(xlabel='x', ylabel='y', title='Animated line plot')
 
-ax1.set(
-    xlabel="time (s)",
-    ylabel="voltage (mV)",
-    title="Plotting based on the theme in tkt",
-)
-ax1.grid()
-ax1.legend(["y=sin(x)"])
+x = numpy.arange(0, 2*numpy.pi, 0.01)
+line, = ax.plot(x, numpy.sin(x))
+
+
+def animate(i):
+    line.set_ydata(numpy.sin(x + i / 50))  # update the data.
+    return line,
+
+
+ani = animation.FuncAnimation(
+    fig1, animate, interval=1, blit=True, save_count=50)
 # tkintertools-mpl #
 
 
@@ -69,11 +73,11 @@ ax2.set_yticks(yticks)
 root = tkt.Tk((1920, 1080), title="Extension Test")
 
 # Optional operations #
-# style.customize_window(root, boarder_type="rectangular")
+# theme.customize_window(root, boarder_type="rectangular")
 # Optional operations #
 
 root.center()
-cv = tkt.Canvas(root, keep_ratio="min", free_anchor=True, zoom_item=True)
+cv = tkt.Canvas(root, keep_ratio="min", free_anchor=True, auto_zoom=True)
 cv.place(width=1920, height=1080, x=960, y=540, anchor="center")
 
 cv_mpl_1 = mpl.FigureCanvas(cv, fig1)
@@ -84,6 +88,8 @@ cv_mpl_2 = mpl.FigureCanvas(cv, fig2)
 toolbar_2 = mpl.FigureToolbar(cv_mpl_2)
 cv_mpl_2.place(width=960, height=540, x=960, y=540)
 
+animations.Animation(1000, lambda _: ani._step(), controller=controllers.linear, repeat=-1).start()
+
 # tkintertools-media #
 cv_media = media.VideoCanvas(
     cv, keep_ratio="min", free_anchor=True, controls=True)
@@ -93,13 +99,14 @@ cv_media.open("./assets/videos/Bad Apple.mp4")
 
 
 # tkintertools-3d #
-space = three.Space(cv, free_anchor=True, zoom_item=True, highlightthickness=0,
-                    keep_ratio="min", bg="black" if style.get_color_mode() == "dark" else "white")
+space = three.Space(cv, free_anchor=True, auto_zoom=True, highlightthickness=0,
+                    keep_ratio="min")
+space.configure(bg="black" if theme.get_color_mode() == "dark" else "white")
 space.place(width=960, height=540, y=540)
 space.update()
 
-style.register_event(lambda flag: space.configure(
-    bg="black" if flag else "white"))
+theme.register_event(lambda flag: space.configure(
+    bg="black" if flag == "dark" else "white"))
 
 m = 150 * math.sqrt(50 - 10 * math.sqrt(5)) / 10
 n = 150 * math.sqrt(50 + 10 * math.sqrt(5)) / 10
@@ -139,8 +146,8 @@ def _callback(_: float) -> None:
     space.space_sort()
 
 
-an = animation.Animation(2000, animation.flat, callback=_callback,
-                         fps=60, repeat=-1, derivation=True)
+an = animations.Animation(2000, _callback, controller=controllers.linear,
+                          fps=60, repeat=-1, derivation=True)
 
 
 tkt.Switch(space, (10, 10), command=lambda flag: an.start()

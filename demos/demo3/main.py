@@ -52,28 +52,28 @@ class LoginToplevel(tkt.Toplevel):
             250, self.sub_title.texts[0].set, "登录到你的账号" if back else "注册新的账号")
         self.after(
             250, self.title, "登录" if back else "注册")
-        animation.MoveWidget(self.sub_title, 500, (0, -80),
-                             controller=animation.controller_generator(math.sin, 0, math.pi, map_y=False), fps=60,
+        animation.MoveWidget(self.sub_title, (0, -80), 500,
+                             controller=animation.generate(math.sin, 0, math.pi, map_y=False), fps=60,
                              end=lambda: self.__setattr__("animation_lock", False)).start()
-        animation.MoveWidget(self.an, 500, (-300*k, 0),
+        animation.MoveWidget(self.an, (-300*k, 0), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.login, 500, (300*k, 0),
+        animation.MoveWidget(self.login, (300*k, 0), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.registry, 500, (300*k, 0),
+        animation.MoveWidget(self.registry, (300*k, 0), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.back, 500, (-300*k, 0),
+        animation.MoveWidget(self.back, (-300*k, 0), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.forget, 500, (0, 100*k),
+        animation.MoveWidget(self.forget, (0, 100*k), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.sep, 500, (0, 100*k),
+        animation.MoveWidget(self.sep, (0, 100*k), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.find, 500, (0, 100*k),
+        animation.MoveWidget(self.find, (0, 100*k), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.sep_2, 500, (0, 100*k),
+        animation.MoveWidget(self.sep_2, (0, 100*k), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.net, 500, (0, 100*k),
+        animation.MoveWidget(self.net, (0, 100*k), 500,
                              controller=animation.smooth, fps=60).start()
-        animation.MoveWidget(self.password_verify, 500, (0, -300*k),
+        animation.MoveWidget(self.password_verify, (0, -300*k), 500,
                              controller=animation.smooth, fps=60).start()
 
 

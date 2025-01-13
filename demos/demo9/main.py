@@ -15,14 +15,14 @@ import tkintertools.color.rgb as rgb
 import tkintertools.core.configs as configs
 import tkintertools.mpl as mpl
 import tkintertools.standard.dialogs as dialogs
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.three as three
 import tkintertools.toolbox as toolbox
 
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
     configs.Font.family = "LXGW WenKai"
 
-mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
+mpl.set_mpl_default_theme(theme.get_color_mode())
 
 
 class App(tkt.Tk):
@@ -30,9 +30,9 @@ class App(tkt.Tk):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        frame_side = tkt.Frame(self, width=320, expand="x")
+        frame_side = tkt.Canvas(self, width=320, expand="x")
         frame_side.pack(fill="y", side="left")
-        self.frame_main = frame_main = tkt.Frame(self, zoom_item=True)
+        self.frame_main = frame_main = tkt.Canvas(self, auto_zoom=True)
         frame_main.pack(fill="both", expand=True)
 
         tkt.Image(frame_main, (480, 240), image=tkt.PhotoImage(
@@ -47,14 +47,14 @@ class App(tkt.Tk):
 
         self.load_canvas_side(frame_side)
 
-    def load_canvas_side(self, frame: tkt.Frame) -> None:
+    def load_canvas_side(self, frame: tkt.Canvas) -> None:
         canvas = tkt.Canvas(
             frame, expand="y", highlightthickness=0)
         canvas.place(width=320, height=720)
         title = tkt.Text(canvas, (160, 50), text="tkintertools",
                          fontsize=32, anchor="center")
         sub_title = tkt.Text(
-            canvas, (160, 90), text="3.0.0.rc1 (Pre-release)", anchor="center")
+            canvas, (160, 90), text="3.0.0rc (Pre-release)", anchor="center")
 
         sizes = ((270, 50),)*10
         text = ("Basic Test", "Window Test", "Text Test", "Image Test",
@@ -65,22 +65,22 @@ class App(tkt.Tk):
                             text=text, command=self.call_canvas, layout="vertical")
 
         animation.GradientItem(
-            canvas, title.texts[0].items[0], "fill", 2000, ("red", "orange"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
+            canvas, title.texts[0].items[0], "fill", ("red", "orange"), 2000, controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
         animation.GradientItem(
-            canvas, sub_title.texts[0].items[0], "fill", 2000, ("green", "cyan"), controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
+            canvas, sub_title.texts[0].items[0], "fill", ("green", "cyan"), 2000, controller=lambda p: math.sin(p*math.pi), repeat=-1).start()
 
     def call_canvas(self, index: int) -> None:
         """"""
         match index:
-            case 0: BasicestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 1: WindowTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 2: TextTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 3: ImageTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 4: MplTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 5: ThreeDTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 6: AnimationTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 7: DialogTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
-            case 8: ColorTestCanvas(self.frame_main, zoom_item=True, free_anchor=True, keep_ratio="min", name="Canvas")
+            case 0: BasicestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 1: WindowTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 2: TextTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 3: ImageTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 4: MplTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 5: ThreeDTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 6: AnimationTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 7: DialogTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
+            case 8: ColorTestCanvas(self.frame_main, auto_zoom=True, free_anchor=True, keep_ratio="min")
             case 9:
                 for canvas in self.frame_main.canvases:
                     canvas.destroy()
@@ -95,45 +95,45 @@ class BasicestCanvas(tkt.Canvas):
         self.place(width=958, height=540, x=481, y=360, anchor="center")
 
         tkt.Button(self, (20, 20), text="Button")
-        tkt.Button(self, (20, 80), text="Disabled Button").disabled()
+        tkt.Button(self, (20, 80), text="Disabled Button").disable()
 
         tkt.Label(self, (220, 20), text="Label")
-        tkt.Label(self, (220, 80), text="Disabled Label").disabled()
+        tkt.Label(self, (220, 80), text="Disabled Label").disable()
 
         tkt.ToggleButton(self, (420, 20), text="ToggleButton")
         tkt.ToggleButton(
-            self, (420, 80), text="Disabled ToggleButton").disabled()
+            self, (420, 80), text="Disabled ToggleButton").disable()
 
         tkt.IconButton(self, (680, 20), text="IconButton",
                        image=tkt.PhotoImage(file="./assets/images/logo.png"))
         tkt.IconButton(self, (680, 80), text="Disabled IconButton",
-                       image=tkt.PhotoImage(file="./assets/images/logo.png")).disabled()
+                       image=tkt.PhotoImage(file="./assets/images/logo.png")).disable()
 
         tkt.Switch(self, (20, 200))
-        tkt.Switch(self, (20, 260)).disabled()
+        tkt.Switch(self, (20, 260)).disable()
         tkt.Switch(self, (120, 200), default=True)
-        tkt.Switch(self, (120, 260), default=True).disabled()
+        tkt.Switch(self, (120, 260), default=True).disable()
 
-        tkt.CheckButton(self, (220, 200))
-        tkt.CheckButton(self, (220, 260)).disabled()
-        tkt.RadioButton(self, (320, 200))
-        tkt.RadioButton(self, (320, 260)).disabled()
+        tkt.CheckBox(self, (220, 200))
+        tkt.CheckBox(self, (220, 260)).disable()
+        tkt.RadioBox(self, (320, 200))
+        tkt.RadioBox(self, (320, 260)).disable()
         tkt.ProgressBar(self, (420, 200)).set(0.5)
-        tkt.ProgressBar(self, (420, 260)).disabled()
+        tkt.ProgressBar(self, (420, 260)).disable()
 
         tkt.SegmentedButton(self, (20, 360), text=(
             "Option1", "Option2", "Option3"), default=0)
         tkt.SegmentedButton(self, (20, 440), text=(
-            "Option1", "Option2", "Option3"), default=1).disabled()
+            "Option1", "Option2", "Option3"), default=1).disable()
         tkt.SegmentedButton(self, (360, 360), layout="vertical", text=(
             "Option1", "Option2", "Option3"), default=2)
         tkt.SegmentedButton(self, (500, 360), layout="vertical", text=(
-            "Option1", "Option2", "Option3")).disabled()
+            "Option1", "Option2", "Option3")).disable()
 
         # widgets.OptionButton(self, (640, 360))
         # widgets.ComboBox(self, (640, 440))
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
 
 class WindowTestCanvas(tkt.Canvas):
@@ -145,48 +145,48 @@ class WindowTestCanvas(tkt.Canvas):
         self.place(width=958, height=540, x=481, y=360, anchor="center")
 
         tkt.Text(self, (20, 20), text="Appearance (Light / Dark)")
-        tkt.Switch(self, (20, 60), default=style.get_color_mode(
-        ) == "dark", command=lambda b: style.set_color_mode("dark" if b else "light"))
+        tkt.Switch(self, (20, 60), default=theme.get_color_mode(
+        ) == "dark", command=lambda b: theme.set_color_mode("dark" if b else "light"))
 
         tkt.Text(self, (350, 20), text="Style (Win10 / Win11)")
         tkt.Switch(self, (350, 60), command=lambda b: self.restart(
             "Windows11" if b else "Windows10"), default=configs.Env.system == "Windows11")
 
         tkt.Text(self, (650, 20), text="HideTitleBar (False / True)")
-        tkt.Switch(self, (650, 60), command=lambda b: style.customize_window(
+        tkt.Switch(self, (650, 60), command=lambda b: theme.customize_window(
             root, hide_title_bar=b))
 
         modes = 'Rectangular', 'SmallRound', 'Round'
         tkt.Text(self, (20, 140), text="BoaderType")
-        tkt.SegmentedButton(self, (20, 180), text=modes, command=lambda i: style.customize_window(
-            root, boarder_type=modes[i].lower()), default=2)
+        tkt.SegmentedButton(self, (20, 180), text=modes, command=lambda i: theme.customize_window(
+            root, border_type=modes[i].lower()), default=2)
 
         text = ["All", "MaxMin", "None"]
 
         tkt.Text(self, (500, 140), text="HideTitleBarButton")
         tkt.SegmentedButton(self, (500, 180), text=text,
-                            command=lambda i: style.customize_window(root, hide_button=text[i].lower()), default=2)
+                            command=lambda i: theme.customize_window(root, hide_button=text[i].lower()), default=2)
 
         styles = ("normal", "mica", "acrylic", "aero", "transparent",
                   "optimised", "win7", "inverse", "native", "popup")
         tkt.Text(self, (20, 280),
                  text="Theme (Only Works on Windows OS!)")
         tkt.SegmentedButton(self, (20, 320), text=styles,
-                            command=lambda i: style.customize_window(root, style=styles[i]))
+                            command=lambda i: theme.apply_theme(root, theme=styles[i]))
 
         t = tkt.Text(self, (20, 420), text="Alpha (100%)")
         tkt.Slider(self, (20, 460), (350, 30), command=lambda p: (
             t.texts[0].set("Alpha (%d%%)" % (p*100)), root.alpha(p)), default=root.alpha())
 
         tkt.Text(self, (450, 420), text="DisabledMaxButton")
-        tkt.Switch(self, (450, 460), command=lambda b: style.customize_window(
+        tkt.Switch(self, (450, 460), command=lambda b: theme.customize_window(
             root, disable_maximize_button=b))
 
         tkt.Text(self, (700, 420), text="DisabledMinButton")
-        tkt.Switch(self, (700, 460), command=lambda b: style.customize_window(
+        tkt.Switch(self, (700, 460), command=lambda b: theme.customize_window(
             root, disable_minimize_button=b))
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
     def restart(self, win: typing.Literal["Windows10", "Windows11"]) -> None:
         global root
@@ -223,7 +223,7 @@ class TextTestCanvas(tkt.Canvas):
         tkt.Text(self, (300, 200), text="SpinBox")
         tkt.SpinBox(self, (300, 240))
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
 
 class ImageTestCanvas(tkt.Canvas):
@@ -252,7 +252,7 @@ class ImageTestCanvas(tkt.Canvas):
         sx.set(0.5)
         sy.set(0.5)
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
     def zoom_image(self, x: float, y: float):
         x = (3*x + 1)/2
@@ -293,7 +293,7 @@ class MplTestCanvas(tkt.Canvas):
         mpl.FigureToolbar(self, figure_canvas)
         figure_canvas.pack(side="top", fill="both", expand=True)
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
 
 class ThreeDTestCanvas(three.Space):
@@ -332,7 +332,7 @@ class ThreeDTestCanvas(three.Space):
 
         self.count = 0
         self.time = 0
-        an = animation.Animation(2000, animation.flat, callback=self._callback,
+        an = animation.Animation(2000, self._callback, controller=animation.linear,
                                  fps=60, repeat=-1, derivation=True)
 
         self.fps = tkt.Text(self, (20, 520), text="FPS: -", anchor="sw")
@@ -340,7 +340,7 @@ class ThreeDTestCanvas(three.Space):
         tkt.Switch(self, (20, 60), command=lambda flag: an.start()
                    if flag else an.stop())
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
     def _callback(self, _: float) -> None:
         """callback function of animation"""
@@ -384,15 +384,15 @@ class AnimationTestCanvas(tkt.Canvas):
         self.item = self.create_oval(
             100, 300, 150, 350, fill="orange", outline="grey")
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
     def move_item(self, back: bool) -> None:
-        func = [animation.flat, animation.smooth,
+        func = [animation.linear, animation.smooth,
                 animation.rebound][self.s.get()]
         ms = int(self.ms.get())
         fps = int(self.fps.get())
         animation.MoveItem(
-            self, self.item, ms, (-500 if back else 500, 0), controller=func, fps=fps).start()
+            self, self.item, (-500 if back else 500, 0), ms, controller=func, fps=fps).start()
 
 
 class DialogTestCanvas(tkt.Canvas):
@@ -425,7 +425,7 @@ class DialogTestCanvas(tkt.Canvas):
         tkt.Button(self, (20, 460), text="Generate Message Box!",
                    command=lambda: dialogs.TkMessage("Message", "Detail", icon=icons[s1.get()], option=types[s2.get()]))
         self.update_idletasks()
-        self.re_place()
+        self.zoom()
 
 
 class ColorTestCanvas(tkt.Canvas):
@@ -438,37 +438,34 @@ class ColorTestCanvas(tkt.Canvas):
 
         rgb1 = color.str_to_rgb("red")
         rgb2 = color.str_to_rgb("purple")
-        hsl1 = hsl.rgb_to_hsl(rgb1)
-        hsl2 = hsl.rgb_to_hsl(rgb2)
+        hsl1 = color.rgb_to_hsl(rgb1)
+        hsl2 = color.rgb_to_hsl(rgb2)
         rgb3 = 0, 0, 0
-        rgb4 = rgb.MAX
+        rgb4 = 255, 255, 255
         hsl3 = 0, 0, 0
-        hsl4 = hsl.MAX
+        hsl4 = math.tau, 1, 1
 
         tkt.Text(self, (20, 20), text="RGB Garients")
 
-        for i, c in enumerate(color.gradient(rgb1, rgb2, 300)):
-            self.create_line(20+i, 60, 20+i, 160, fill=color.rgb_to_str(c))
-        for i, c in enumerate(color.gradient(rgb3, rgb4, 300)):
-            self.create_line(350+i, 60, 350+i, 160, fill=color.rgb_to_str(c))
+        for i, c in enumerate(rgb.gradient(rgb1, rgb2, 300)):
+            self.create_line(20+i, 60, 20+i, 160, fill=color.rgb_to_hex(c))
+        for i, c in enumerate(rgb.gradient(rgb3, rgb4, 300)):
+            self.create_line(350+i, 60, 350+i, 160, fill=color.rgb_to_hex(c))
 
         tkt.Text(self, (20, 200), text="HSL Garients")
 
         for i, c in enumerate(hsl.gradient(hsl1, hsl2, 300)):
             self.create_line(20+i, 240, 20+i, 340,
-                             fill=color.rgb_to_str(hsl.hsl_to_rgb(c)))
+                             fill=color.rgb_to_hex(color.hsl_to_rgb(c)))
         for i, c in enumerate(hsl.gradient(hsl3, hsl4, 300)):
             self.create_line(350+i, 240, 350+i, 340,
-                             fill=color.rgb_to_str(hsl.hsl_to_rgb(c)))
+                             fill=color.rgb_to_hex(color.hsl_to_rgb(c)))
 
         tkt.Text(self, (700, 20), text="RGBA (Experimental)")
 
-        _l = tkt.Label(self, (700, 60), (200, 280), name="")
-        _l.shapes[0].styles = {"normal": {"fill": "#448AFF33", "outline": "#448AFF"},
-                               "hover": {"fill": "#00BFA533", "outline": "#00BFA5"}}
-        _l.update()
-        self.update_idletasks()
-        self.re_place()
+        tkt.Label(self, (700, 60), (200, 280)).style.set(
+            bg=("#448AFF33", "#00BFA533"), ol=("#448AFF", "#00BFA5"))
+        self.zoom()
 
 
 root = App(title=f"{tkt.__name__} {tkt.__version__} - {configs.Env.system}")

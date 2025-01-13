@@ -12,7 +12,7 @@ import tkintertools as tkt
 import tkintertools.core.configs as configs
 import tkintertools.mpl as mpl
 import tkintertools.standard.dialogs as dialogs
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.toolbox as toolbox
 
 
@@ -175,7 +175,7 @@ def open_images() -> None:
 def caculate() -> None:
     """根据模式计算数据"""
     global toolbar, figure_canvas
-    c.disabled()
+    c.disable()
     clear()
     t = time.time()
 
@@ -202,7 +202,7 @@ def caculate() -> None:
     except Exception as e:
         dialogs.TkMessage(e.__class__.__name__, e, title="遇到错误", icon="error")
     finally:
-        c.disabled(False)
+        c.disable(False)
         b.texts[0].set(f"计算耗时: {time.time()-t:0.3f} s")
 
 
@@ -212,8 +212,8 @@ def show() -> None:
     clear()
 
     try:
-        figure_canvas = tkt.Canvas(base_canvas, zoom_item=True)
-        x, y = root._size
+        figure_canvas = tkt.Canvas(base_canvas, auto_zoom=True)
+        x, y = root.size
         image = ImageTk.PhotoImage(Image.open(FILE1).crop(AREA))
         figure_canvas.create_image(x//2, y//2-60, image=image)
         figure_canvas.create_text(
@@ -230,7 +230,7 @@ def show() -> None:
 if toolbox.load_font("./assets/fonts/LXGWWenKai-Regular.ttf"):
     configs.Font.family = "LXGW WenKai"
 
-mpl.set_mpl_default_theme(style.get_color_mode(), apply_font=True)
+mpl.set_mpl_default_theme(theme.get_color_mode(), apply_font=True)
 
 
 MODE: bool = False  # 计算模式
@@ -242,7 +242,7 @@ FILE2: str = ""  # 图二
 root = tkt.Tk((1600, 900), title="Matplotlib Project - PIV 图像分析")
 root.minsize(1600, 900)
 root.center()
-base_canvas = tkt.Canvas(root, zoom_item=True)
+base_canvas = tkt.Canvas(root, auto_zoom=True)
 base_canvas.place(width=1600, height=900)
 
 fig = figure.Figure()
@@ -275,8 +275,8 @@ tkt.Text(canvas, (1170, 30), text="黑暗模式", anchor="center")
 tkt.Text(canvas, (990, 80), text="速度矢量", anchor="center")
 tkt.Text(canvas, (1170, 80), text="相关系数", anchor="center")
 
-tkt.Switch(canvas, (1050, 15), 60, default=style.get_color_mode() == "dark",
-           command=lambda b: style.set_color_mode("dark" if b else "light"))
+tkt.Switch(canvas, (1050, 15), 60, default=theme.get_color_mode() == "dark",
+           command=lambda b: theme.set_color_mode("dark" if b else "light"))
 tkt.Switch(canvas, (1050, 65), 60, command=set_calc_mode)
 
 a = tkt.Text(canvas, (1270, 20),

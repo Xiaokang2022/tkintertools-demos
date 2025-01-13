@@ -1,20 +1,23 @@
 import time
 
 import tkintertools as tkt
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.three as three
 
 root = tkt.Tk(title="3D Performance Test - Demo6")
 
-space = three.Space(root, zoom_item=True, free_anchor=True,
-                    keep_ratio="min", highlightthickness=0,
-                    bg="black" if style.get_color_mode() == "dark" else "white")
+space = three.Space(root, auto_zoom=True, free_anchor=True,
+                    keep_ratio="min", highlightthickness=0)
+
+space["bg"] = "black" if theme.get_color_mode() == "dark" else "white"
+
+theme.register_event(lambda flag: space.configure(
+    bg="black" if flag == "dark" else "white"))
+
 space.place(width=1280, height=720, x=640, y=360, anchor="center")
 
 space.update()
 
-style.register_event(lambda flag: space.configure(
-    bg="black" if flag else "white"))
 
 for i in range(100):
     three.Cuboid(space, -100, -100, -100, 200, 200, 200,

@@ -4,18 +4,19 @@ import statistics
 
 import tkintertools as tkt
 import tkintertools.animation as animation
-import tkintertools.style as style
+import tkintertools.theme as theme
 import tkintertools.three as three
 
 root = tkt.Tk(title="3D Functional Test - Demo7")
 
-space = three.Space(root, free_anchor=True, zoom_item=True, highlightthickness=0,
-                    keep_ratio="min", bg="black" if style.get_color_mode() == "dark" else "white")
+space = three.Space(root, free_anchor=True, auto_zoom=True, highlightthickness=0,
+                    keep_ratio="min")
+space["bg"] = "black" if theme.get_color_mode() == "dark" else "white"
 space.place(width=1280, height=720, x=640, y=360, anchor="center")
 space.update()
 
-style.register_event(lambda flag: space.configure(
-    bg="black" if flag else "white"))
+theme.register_event(lambda flag: space.configure(
+    bg="black" if flag == "dark" else "white"))
 
 m = 150 * math.sqrt(50 - 10 * math.sqrt(5)) / 10
 n = 150 * math.sqrt(50 + 10 * math.sqrt(5)) / 10
@@ -55,7 +56,7 @@ def _callback(_: float) -> None:
     space.space_sort()
 
 
-an = animation.Animation(2000, animation.flat, callback=_callback,
+an = animation.Animation(2000, _callback, controller=animation.linear,
                          fps=60, repeat=-1, derivation=True)
 
 
