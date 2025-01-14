@@ -13,7 +13,7 @@ root.geometry(size=(476, 668))
 cv = tkt.Canvas(auto_zoom=True)
 cv.place(width=476, height=668)
 
-photo = tkt.PhotoImage(file="../../Assets/Images/Special/user.png")
+photo = tkt.PhotoImage(file="assets/logo.png")
 
 title = tkt.Text(cv, (238, 88), text="DEMO", fontsize=36, anchor="center")
 
